@@ -1,64 +1,54 @@
-﻿(define (domain monkey-domain)	       ; Comment: adding location caused fail
+﻿(define (domain belkan)	       ; Comment: adding location caused fail
   (:requirements :strips :equality :typing)
-  (:types  monkey banana box - locatable
-          location)
- 
-  (:predicates 
-	       (on-floor ?x - monkey )
-	       (at ?m - locatable ?x - location)
-	       (onbox ?x - monkey ?y - location)
-	       (hasbananas ?x - monkey)
-	       
-	       )
-	       
-  (:functions
-         (distanciaTotal)
+  (:types  zona
+           orientacion
+           agente princesa principe bruja profesor leonardo - personaje
+           oscar manzana rosa algoritmo oro - objeto
+           personaje objeto - posicionable
   )
-  (:action GRAB-BANANAS
-	     :parameters (?m - monkey ?y - location ?ban - banana)
-	     ; Las precondiciones van relacionadas con un and
-	     :precondition (and 
-	                     (onbox ?m  ?y)
-	                     (at ?ban ?y)
+
+  (:constants
+    norte - orientacion
+    sur - orientacion
+    este - orientacion
+    oeste - orientacion
+  )
+
+  (:predicates
+    (en ?x - posicionable ?y - zona)
+    (orientado ?a - personaje ?ori - orientacion)
+    (conectado ?z1 ?z2 - zona ?ori - orientacion)
+	)
+
+  (:action girar-izquierda
+	     :parameters (?age - agente ?ori - orientacion)
+	     :precondition (and
+                        (orientado ?age ?ori)
 	                   )
-	     ; Añade este predicado
 	     :effect (and
-	                   (hasbananas ?m)
-	                   (not (at ?ban ?y))
-	               )
-  )
-  (:action GO-OVER-BOX
-      :parameters (?m - monkey ?y - location ?b - box)
-      :precondition (and 
-                        (on-floor ?m)
-                        (at ?m ?y)
-                        (at ?b ?y)
+                  (when (and(orientado ?age norte))
+                    (and
+                      (orientado ?age oeste)
+                      (not (orientado ?age ?ori))
                     )
-      :effect (and
-          (onbox ?m ?y)
-          (not (on-floor ?m))
-      )
-  )
-  (:action MOVE
-      :parameters (?x - monkey ?y1 ?y2 - location)
-      :precondition (and (at ?x ?y1))
-      :effect (and
-          (at ?x ?y2)
-          (not (at ?x ?y1))
-          )
-  )
-  (:action PUSH
-      :parameters (?x - monkey ?y - location ?b - box ?end - location)
-      :precondition (and 
-                        (at ?x ?y)
-                        (at ?b ?y)
-                        (on-floor ?x)
+                  )
+                  (when (and(orientado ?age oeste))
+                    (and
+                      (orientado ?age sur)
+                      (not (orientado ?age ?ori))
                     )
-      :effect (and
-          (at ?x ?end)
-          (at ?b ?end)
-          (not (at ?x ?y))
-          (not (at ?b ?y))
-          )
+                  )
+                  (when (and(orientado ?age sur))
+                    (and
+                      (orientado ?age este)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+                  (when (and(orientado ?age este))
+                    (and
+                      (orientado ?age norte)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+	             )
   )
-)
