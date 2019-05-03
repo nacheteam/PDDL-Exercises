@@ -1,4 +1,4 @@
-﻿(define (domain belkan)	       ; Comment: adding location caused fail
+﻿(define (domain dominio-belkan)	       ; Comment: adding location caused fail
   (:requirements :strips :equality :typing)
   (:types  zona
            orientacion
@@ -47,6 +47,39 @@
                   (when (and(orientado ?age este))
                     (and
                       (orientado ?age norte)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+	             )
+  )
+
+  (:action girar-derecha
+	     :parameters (?age - agente ?ori - orientacion)
+	     :precondition (and
+                        (orientado ?age ?ori)
+	                   )
+	     :effect (and
+                  (when (and(orientado ?age norte))
+                    (and
+                      (orientado ?age este)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+                  (when (and(orientado ?age oeste))
+                    (and
+                      (orientado ?age norte)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+                  (when (and(orientado ?age sur))
+                    (and
+                      (orientado ?age oeste)
+                      (not (orientado ?age ?ori))
+                    )
+                  )
+                  (when (and(orientado ?age este))
+                    (and
+                      (orientado ?age sur)
                       (not (orientado ?age ?ori))
                     )
                   )
