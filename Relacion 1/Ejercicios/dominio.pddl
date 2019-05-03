@@ -18,13 +18,15 @@
     (en ?x - posicionable ?y - zona)
     (orientado ?a - personaje ?ori - orientacion)
     (conectado ?z1 ?z2 - zona ?ori - orientacion)
-    (manovacia ?a - personaje)
-    (enlamano ?a - personaje ?obj - objeto)
+    (manovacia ?a - agente)
+    (enlamano ?a - agente ?obj - objeto)
+    (tiene ?per - personaje ?obj - objeto)
 	)
 
   (:action girar-izquierda
 	     :parameters (?age - agente)
 	     :precondition (and
+                        ()
 	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
@@ -57,6 +59,7 @@
   (:action girar-derecha
 	     :parameters (?age - agente)
 	     :precondition (and
+                        ()
 	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
@@ -124,5 +127,19 @@
               (en ?obj ?z1)
               (manovacia ?age)
               (not (enlamano ?age ?obj))
+            )
+  )
+
+  (:action entregar
+    :parameters (?age - agente ?z1 - zona ?obj - objeto ?per - personaje)
+    :precondition (and
+                    (en ?age ?z1)
+                    (en ?per ?z1)
+                    (enlamano ?age ?obj)
+                  )
+    :effect (and
+              (manovacia ?age)
+              (not (enlamano ?age ?obj))
+              (tiene ?per ?obj)
             )
   )
