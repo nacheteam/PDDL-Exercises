@@ -2,6 +2,7 @@
     (:domain domino-belkan)
   (:objects p1 p2 p3 p4 - location
             monkey1 - monkey
+            orientacion1 - orientacion
 			box1 - box
 			bananas1 - banana)
   (:init
