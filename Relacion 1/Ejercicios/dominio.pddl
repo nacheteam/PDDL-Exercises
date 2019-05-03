@@ -1,4 +1,4 @@
-﻿(define (domain dominio-belkan)	       ; Comment: adding location caused fail
+﻿(define (domain dominio-ej1)	       ; Comment: adding location caused fail
   (:requirements :strips :equality :typing)
   (:types  zona
            orientacion
