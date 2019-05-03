@@ -21,67 +21,79 @@
 	)
 
   (:action girar-izquierda
-	     :parameters (?age - agente ?ori - orientacion)
+	     :parameters (?age - agente)
 	     :precondition (and
-                        (orientado ?age ?ori)
 	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
                     (and
                       (orientado ?age oeste)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age norte))
                     )
                   )
                   (when (and(orientado ?age oeste))
                     (and
                       (orientado ?age sur)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age oeste))
                     )
                   )
                   (when (and(orientado ?age sur))
                     (and
                       (orientado ?age este)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age sur))
                     )
                   )
                   (when (and(orientado ?age este))
                     (and
                       (orientado ?age norte)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age este))
                     )
                   )
 	             )
   )
 
   (:action girar-derecha
-	     :parameters (?age - agente ?ori - orientacion)
+	     :parameters (?age - agente)
 	     :precondition (and
-                        (orientado ?age ?ori)
 	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
                     (and
                       (orientado ?age este)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age norte))
                     )
                   )
                   (when (and(orientado ?age oeste))
                     (and
                       (orientado ?age norte)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age oeste))
                     )
                   )
                   (when (and(orientado ?age sur))
                     (and
                       (orientado ?age oeste)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age sur))
                     )
                   )
                   (when (and(orientado ?age este))
                     (and
                       (orientado ?age sur)
-                      (not (orientado ?age ?ori))
+                      (not (orientado ?age este))
                     )
                   )
 	             )
+  )
+
+
+  (:action ir
+    :parameters (?age - agente ?z1 ?z2 - zona ?ori - orientacion)
+    :precondition (and
+                    (en ?age ?z1)
+                    (orientado ?age ?ori)
+                    (conectado ?z1 ?z2 ?ori)
+                  )
+    :effect (and
+              (en ?age ?z2)
+              (not (en ?age ?z1))
+            )
   )
