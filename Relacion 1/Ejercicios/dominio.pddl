@@ -113,3 +113,16 @@
               (enlamano ?age ?obj)
             )
   )
+
+  (:action dejar
+    :parameters (?age - agente ?z1 - zona ?obj - objeto)
+    :precondition (and
+                    (en ?age ?z1)
+                    (enlamano ?age ?obj)
+                  )
+    :effect (and
+              (en ?obj ?z1)
+              (manovacia ?age)
+              (not (enlamano ?age ?obj))
+            )
+  )
