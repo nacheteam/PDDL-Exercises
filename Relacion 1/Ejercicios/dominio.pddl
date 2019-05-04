@@ -20,7 +20,7 @@
     (conectado ?z1 ?z2 - zona ?ori - orientacion)
     (manovacia ?a - agente)
     (enlamano ?a - agente ?obj - objeto)
-    (tiene ?per - personaje ?obj - objeto)
+    (tieneobjeto ?per - personaje)
 	)
 
   (:action girar-izquierda
@@ -140,6 +140,6 @@
     :effect (and
               (manovacia ?age)
               (not (enlamano ?age ?obj))
-              (tiene ?per ?obj)
+              (tieneobjeto ?per)
             )
   )
