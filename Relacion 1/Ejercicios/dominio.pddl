@@ -25,9 +25,6 @@
 
   (:action girar-izquierda
 	     :parameters (?age - agente)
-	     :precondition (and
-                        ()
-	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
                     (and
@@ -58,9 +55,6 @@
 
   (:action girar-derecha
 	     :parameters (?age - agente)
-	     :precondition (and
-                        ()
-	                   )
 	     :effect (and
                   (when (and(orientado ?age norte))
                     (and
@@ -143,3 +137,4 @@
               (tieneobjeto ?per)
             )
   )
+)
