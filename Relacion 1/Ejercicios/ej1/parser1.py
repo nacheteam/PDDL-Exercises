@@ -37,7 +37,7 @@ for line in entrada:
                 posiciones_personajes.append(zonas_linea[-1])
                 pers = z.split("[")[1].split("]")[0]
                 # Añadimos si es un agente
-                if "Agente" in pers:
+                if "agente" in pers:
                     agentes.append(pers.split("-")[0])
                 # Lo añadimos a personajes
                 personajes.append(pers)
@@ -59,14 +59,14 @@ problema.write("    (:objects\n")
 for personaje in personajes:
     problema.write("        " + personaje.split("-")[0] + " - " + personaje.split("-")[1] + "\n")
 problema.write("        ")
-for zona in zonas:
+for zona in list(set(zonas)):
     problema.write(zona + " ")
 problema.write("- zona\n    )\n")
 
 problema.write("    (:init\n")
 for relacion in relaciones:
     problema.write("        " + relacion + "\n")
-
+    
 for agente in agentes:
     problema.write("        (orientado " + agente + " norte)\n")
     problema.write("        (manovacia " + agente + ")\n")
@@ -78,7 +78,8 @@ problema.write("    )\n")
 problema.write("    (:goal (AND\n")
 for pers in personajes:
     if not pers.split("-")[1] in ["agente", "oscar", "manzana", "rosa", "algoritmo", "oro"]:
-        problema.write("        (tieneobjeto " + " " + pers.split("-")[0] + ")\n")
+        problema.write("          (tieneobjeto " + " " + pers.split("-")[0] + ")\n")
 
+problema.write("        )\n")
 problema.write("    )\n")
 problema.write(")\n")
