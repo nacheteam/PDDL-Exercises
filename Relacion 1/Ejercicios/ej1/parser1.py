@@ -66,7 +66,7 @@ problema.write("- zona\n    )\n")
 problema.write("    (:init\n")
 for relacion in relaciones:
     problema.write("        " + relacion + "\n")
-    
+
 for agente in agentes:
     problema.write("        (orientado " + agente + " norte)\n")
     problema.write("        (manovacia " + agente + ")\n")
