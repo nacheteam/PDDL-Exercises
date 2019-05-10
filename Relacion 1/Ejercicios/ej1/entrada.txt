@@ -1,4 +1,4 @@
 numero de zonas:7
 V -> z1[bruja1-bruja] z3[] z6[]
-H -> z2[player1-agente] z3[] z4[manzana1-manzana]
-H -> z5[oscar1-oscar] z6[] z7[princesa1-princesa]
+H -> z2[player1-agente] z3[] z4[]
+H -> z5[oscar1-oscar,manzana1-manzana] z6[] z7[princesa1-princesa]

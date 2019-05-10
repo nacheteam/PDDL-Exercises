@@ -3,10 +3,10 @@
     (:objects
         bruja1 - bruja
         player1 - agente
-        manzana1 - manzana
         oscar1 - oscar
+        manzana1 - manzana
         princesa1 - princesa
-        z1 z3 z2 z5 z7 z4 z6 - zona
+        z3 z6 z4 z2 z1 z5 z7 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -25,8 +25,8 @@
         (manovacia player1)
         (en bruja1 z1)
         (en player1 z2)
-        (en manzana1 z4)
         (en oscar1 z5)
+        (en manzana1 z5)
         (en princesa1 z7)
     )
     (:goal (AND

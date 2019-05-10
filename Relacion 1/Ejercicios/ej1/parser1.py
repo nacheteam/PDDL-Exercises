@@ -34,13 +34,14 @@ for line in entrada:
             # Si hay algún personaje u objeto
             if not "[]" in z:
                 # Añadimos su posicion
-                posiciones_personajes.append(zonas_linea[-1])
                 pers = z.split("[")[1].split("]")[0]
-                # Añadimos si es un agente
-                if "agente" in pers:
-                    agentes.append(pers.split("-")[0])
-                # Lo añadimos a personajes
-                personajes.append(pers)
+                for per in pers.split(","):
+                    posiciones_personajes.append(zonas_linea[-1])
+                    # Añadimos si es un agente
+                    if "agente" in per:
+                        agentes.append(per.split("-")[0])
+                    # Lo añadimos a personajes
+                    personajes.append(per)
 
         # Añadimos las relaciones de conexión
         for i in range(len(zonas_linea)-1):
