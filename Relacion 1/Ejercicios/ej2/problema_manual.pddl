@@ -1,5 +1,5 @@
-(define (problem problema-ej1)
-  (:domain dominio-ej1)
+(define (problem problema-ej2)
+  (:domain dominio-ej2)
   (:objects z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
             agente1 - agente
             princesa1 - princesa
@@ -93,12 +93,99 @@
     (conectado z23 z24 sur)
     (conectado z24 z23 norte)
 
+    (= (coste z1 z2) 5)
+    (= (coste z2 z1) 5)
+    (= (coste z2 z3) 4)
+    (= (coste z3 z2) 4)
+    (= (coste z3 z4) 3)
+    (= (coste z4 z3) 3)
+    (= (coste z4 z5) 8)
+    (= (coste z5 z4) 8)
 
-    ; z1[ag]   z2       z3[psa]  z4       z5[pcpe]
-    ; z6[oro]  z7       z8[osc]  z9       z10[leo]
-    ; z11[bja] z12      z13      z14[man] z15                        z25
-    ; z16      z17      z18[pro] z19      z20      z21[rsa] z22      z23[algo]
-    ;                                                                z24
+    (= (coste z1 z6) 2)
+    (= (coste z6 z1) 2)
+    (= (coste z2 z7) 5)
+    (= (coste z7 z2) 5)
+    (= (coste z3 z8) 6)
+    (= (coste z8 z3) 6)
+    (= (coste z4 z9) 5)
+    (= (coste z9 z4) 5)
+    (= (coste z5 z10) 2)
+    (= (coste z10 z5) 2)
+
+    (= (coste z6 z7) 3)
+    (= (coste z7 z6) 3)
+    (= (coste z7 z8) 6)
+    (= (coste z8 z7) 6)
+    (= (coste z8 z9) 5)
+    (= (coste z9 z8) 5)
+    (= (coste z9 z10) 1)
+    (= (coste z10 z9) 1)
+
+    (= (coste z6 z11) 1)
+    (= (coste z11 z6) 1)
+    (= (coste z7 z12) 1)
+    (= (coste z12 z7) 1)
+    (= (coste z8 z13) 1)
+    (= (coste z13 z8) 1)
+    (= (coste z9 z14) 1)
+    (= (coste z14 z9) 1)
+    (= (coste z10 z15) 1)
+    (= (coste z15 z10) 1)
+
+    (= (coste z11 z12) 7)
+    (= (coste z12 z11) 7)
+    (= (coste z12 z13) 2)
+    (= (coste z13 z12) 2)
+    (= (coste z13 z14) 6)
+    (= (coste z14 z13) 6)
+    (= (coste z14 z15) 2)
+    (= (coste z15 z14) 2)
+
+    (= (coste z11 z16) 4)
+    (= (coste z16 z11) 4)
+    (= (coste z12 z17) 3)
+    (= (coste z17 z12) 3)
+    (= (coste z13 z18) 2)
+    (= (coste z18 z13) 2)
+    (= (coste z14 z19) 6)
+    (= (coste z19 z14) 6)
+    (= (coste z15 z20) 8)
+    (= (coste z20 z15) 8)
+
+    (= (coste z16 z17) 8)
+    (= (coste z17 z16) 8)
+    (= (coste z17 z18) 9)
+    (= (coste z18 z17) 9)
+    (= (coste z18 z19) 2)
+    (= (coste z19 z18) 2)
+    (= (coste z19 z20) 5)
+    (= (coste z20 z19) 5)
+    (= (coste z20 z21) 2)
+    (= (coste z21 z20) 2)
+    (= (coste z21 z22) 1)
+    (= (coste z22 z21) 1)
+    (= (coste z22 z23) 4)
+    (= (coste z23 z22) 4)
+
+    (= (coste z25 z23) 8)
+    (= (coste z23 z25) 8)
+    (= (coste z23 z24) 6)
+    (= (coste z24 z23) 6)
+
+    (= (costeTotal) 0)
+
+    ; z1[ag] ==5== z2 ==4== z3[psa] =3== z4 ====8==== z5[pcpe]
+    ; ==2==       =5=       ==6==       =5=           ===2===
+    ; z6[oro] ==3= z7 ==6== z8[osc] =5== z9 ====1==== z10[leo]
+    ; ==1===       =1=      ===1==       =1=          ===1=
+    ; z11[bja] =7= z12 ==2= z13 ===6==== z14[man] =2= z15                            z25
+    ; ==4===       =3=      =2=          ==6==        =8=                            =8=
+    ; z16 ====8=== z17 ==9= z18[pro] =2= z19 ===5==== z20 =2= z21[rsa] =1= z22 ==4== z23[algo]
+    ;                                                                                =6=
+    ;                                                                                z24
+
+
     (orientado agente1 norte)
     (manovacia agente1)
     (en agente1 z1)
@@ -120,6 +207,8 @@
             (tieneobjeto bruja1)
             (tieneobjeto profesor1)
             (tieneobjeto leonardo1)
+            (< (costeTotal) 200)
           )
   )
+  (:metric (costeTotal))
 )

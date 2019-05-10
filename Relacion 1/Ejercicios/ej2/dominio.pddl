@@ -1,4 +1,4 @@
-﻿(define (domain dominio-ej1)
+﻿(define (domain dominio-ej2)
   (:requirements :strips :equality :typing)
   (:types  zona
            orientacion
@@ -22,6 +22,11 @@
     (enlamano ?a - agente ?obj - objeto)
     (tieneobjeto ?per - personaje)
 	)
+
+  (:functions
+	    (coste ?z1 ?z2 - zona)
+      (costeTotal)
+  )
 
   (:action girar-izquierda
 	     :parameters (?age - agente)
@@ -94,6 +99,7 @@
     :effect (and
               (en ?age ?z2)
               (not (en ?age ?z1))
+              (increase (costeTotal) (coste ?z1 ?z2))
             )
   )
 

@@ -1,12 +1,12 @@
-(define (problem problema-ej1)
-    (:domain dominio-ej1)
+(define (problem problema-ej2)
+    (:domain dominio-ej2)
     (:objects
         bruja1 - bruja
         player1 - agente
-        manzana1 - manzana
         oscar1 - oscar
+        manzana1 - manzana
         princesa1 - princesa
-        z1 z3 z2 z5 z7 z4 z6 - zona
+        z7 z3 z6 z2 z4 z1 z5 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -25,13 +25,27 @@
         (manovacia player1)
         (en bruja1 z1)
         (en player1 z2)
-        (en manzana1 z4)
         (en oscar1 z5)
+        (en manzana1 z5)
         (en princesa1 z7)
+        (= (coste z3 z1) 10)
+        (= (coste z1 z3) 10)
+        (= (coste z6 z3) 5)
+        (= (coste z3 z6) 5)
+        (= (coste z3 z2) 10)
+        (= (coste z2 z3) 10)
+        (= (coste z4 z3) 5)
+        (= (coste z3 z4) 5)
+        (= (coste z6 z5) 10)
+        (= (coste z5 z6) 10)
+        (= (coste z7 z6) 5)
+        (= (coste z6 z7) 5)
+        (= (costeTotal) 0)
     )
     (:goal (AND
           (tieneobjeto  bruja1)
           (tieneobjeto  princesa1)
-        )
+          (< (costeTotal) 200)
+          )
     )
 )
