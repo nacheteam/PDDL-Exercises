@@ -6,6 +6,11 @@ ENTRADA = "entrada.txt"
 problema = open("problema.pddl", "w")
 entrada = open("entrada.txt", "r")
 
+
+#Nombre Dominio
+nombre_dominio = ""
+#Nombre Problema
+nombre_problema = ""
 # Número de zonas
 num_zonas = 0
 # Posiciones de personajes y objetos
@@ -23,6 +28,11 @@ for line in entrada:
     # Cogemos el número de zonas
     if "numero de zonas" in line:
         num_zonas = int(line.split(":")[1])
+    if "Dominio" in line:
+        nombre_dominio = line.split(":")[1].strip()
+    if "Problema" in line:
+        nombre_problema = line.split(":")[1].strip()
+
     # Separamos la línea
     if "->" in line:
         zonas_linea = []
@@ -53,8 +63,8 @@ for line in entrada:
                 relaciones.append("(conectado " + zonas_linea[i+1] + " " + zonas_linea[i] + " " + "norte" +  ")")
 
 # Escribimos el fichero
-problema.write("(define (problem problema-ej1)\n")
-problema.write("    (:domain dominio-ej1)\n")
+problema.write("(define (problem " + nombre_problema + ")\n")
+problema.write("    (:domain " + nombre_dominio + ")\n")
 
 problema.write("    (:objects\n")
 for personaje in personajes:

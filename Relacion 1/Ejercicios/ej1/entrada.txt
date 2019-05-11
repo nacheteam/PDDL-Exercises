@@ -1,3 +1,5 @@
+Dominio:Ejercicio1
+Problema:Problema1
 numero de zonas:7
 V -> z1[bruja1-bruja] z3[] z6[]
 H -> z2[player1-agente] z3[] z4[]

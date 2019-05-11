@@ -1,12 +1,12 @@
-(define (problem problema-ej1)
-    (:domain dominio-ej1)
+(define (problem Problema1)
+    (:domain Ejercicio1)
     (:objects
         bruja1 - bruja
         player1 - agente
         oscar1 - oscar
         manzana1 - manzana
         princesa1 - princesa
-        z3 z6 z4 z2 z1 z5 z7 - zona
+        z2 z6 z7 z3 z1 z4 z5 - zona
     )
     (:init
         (conectado z1 z3 sur)

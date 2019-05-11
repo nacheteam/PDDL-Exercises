@@ -1,4 +1,4 @@
-﻿(define (domain dominio-ej1)
+﻿(define (domain Ejercicio1)
   (:requirements :strips :equality :typing)
   (:types  zona
            orientacion
