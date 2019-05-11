@@ -174,17 +174,23 @@ El problema es resoluble y ff nos da la solución:
 	\item ENTREGAR AGENTE1 Z3 ALGORITMO1 PRINCESA1
 \end{enumerate}
 
-Por último se nos pide un parser que he implementado en Python3 que dado una entrada de la forma:
+Por último se nos pide un parser que he implementado en Python3 que dada una entrada de la forma:
 
 numero de zonas:7
 
+Dominio:Ejercicio2
+
+Problema:Problema2
+
 V -$>$ z1[bruja1-bruja] z3[] z6[]
 
-H -$>$ z2[player1-agente] z3[] z4[manzana1-manzana]
+H -$>$ z2[player1-agente] z3[] z4[]
 
-H -$>$ z5[oscar1-oscar] z6[] z7[princesa1-princesa]
+H -$>$ z5[oscar1-oscar,manzana1-manzana] z6[] z7[princesa1-princesa]
 
 Cabe decir que tenemos que poner los nombres de los tipos en minúscula para que casen con los que yo he definido. 
+
+Además, aunque el enunciado dice que los objetos de cada zona (entre corchetes) deben estar separados por espacios, he tomado la decisión de diseño de que los elementos estén separados por comas, pues de  esta forma los separadores son únicos para cada caso lo que hace que su división sea más sencilla.
 
 El resto es simplemente un programa en Python comentado que convierte este fichero en un fichero de problema PDDL completo usando el dominio descrito anteriormente.
 
