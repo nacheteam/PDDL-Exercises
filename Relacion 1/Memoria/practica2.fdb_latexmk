@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1557342271 "practica2.tex" "practica2.pdf" "practica2" 1557342272
+["pdflatex"] 1557697379 "practica2.tex" "practica2.pdf" "practica2" 1557697382
   "/etc/texmf/web2c/texmf.cnf" 1533908992 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
@@ -22,6 +22,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1480098701 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm" 1480098711 520 4889cce2180234b97cad636b6039c722 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1480098733 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1480098733 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1480098806 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -191,13 +192,13 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1533913013 2700761 ac0584cc9514ab21918550a6948c4ee2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1539283189 4125949 40c75940ef1dd4cb1560985040f7413e ""
   "Imagenes/diag-ej1.png" 1557338381 17342 b405431343a46ce4d092539b81393a84 ""
-  "practica2.aux" 1557342272 969 9ec269d50cb6bc1db09ff8d311352eac ""
-  "practica2.out" 1557342272 46 c82fca9fb21ea7a111965d117f633e62 ""
-  "practica2.tex" 1557342271 8009 0a3408de7888a572ecdd23765b557061 ""
-  "practica2.toc" 1557342272 89 8f63ac2282c99ac438f519f34ccbec96 ""
+  "practica2.aux" 1557697381 1138 cbbf5ac3ce248c4ba69116003edec43d ""
+  "practica2.out" 1557697381 138 c37e2a769a7bd631925245363132fe1f ""
+  "practica2.tex" 1557697378 31629 1b2db8ff688104773f88058b67c79eeb ""
+  "practica2.toc" 1557697381 222 a8ba96d428b4089d3f8d3d7657bbb2e2 ""
   (generated)
-  "practica2.pdf"
-  "practica2.toc"
   "practica2.log"
+  "practica2.toc"
   "practica2.aux"
+  "practica2.pdf"
   "practica2.out"

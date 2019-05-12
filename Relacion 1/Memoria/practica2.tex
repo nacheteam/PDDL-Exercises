@@ -77,12 +77,12 @@ Lo siguiente que se nos pide es que planteemos de forma manual un problema con 2
 
 La disposición del mapa que he dado es la siguiente:
 
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
 %uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
 
-%Shape: Grid [id:dp8007827105902172] 
+%Shape: Grid [id:dp8007827105902172]
 \draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,24) -- (130,499)(225,24) -- (225,499)(320,24) -- (320,499)(415,24) -- (415,499)(510,24) -- (510,499)(605,24) -- (605,499)(700,24) -- (700,499) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,119) -- (795,119)(35,214) -- (795,214)(35,309) -- (795,309)(35,404) -- (795,404) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ;
 
 % Text Node
@@ -259,7 +259,7 @@ H -$>$ z2[player1-agente] z3[] z4[]
 
 H -$>$ z5[oscar1-oscar,manzana1-manzana] z6[] z7[princesa1-princesa]
 
-Cabe decir que tenemos que poner los nombres de los tipos en minúscula para que casen con los que yo he definido. 
+Cabe decir que tenemos que poner los nombres de los tipos en minúscula para que casen con los que yo he definido.
 
 Además, aunque el enunciado dice que los objetos de cada zona (entre corchetes) deben estar separados por espacios, he tomado la decisión de diseño de que los elementos estén separados por comas, pues de  esta forma los separadores son únicos para cada caso lo que hace que su división sea más sencilla.
 
@@ -280,12 +280,12 @@ Para la extensión del problema podemos tomar todo lo hecho y únicamente añadi
 
 En el problema anterior de 25 zonas vamos a añadir los siguientes pesos:
 
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
 %uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
 
-%Shape: Grid [id:dp8007827105902172] 
+%Shape: Grid [id:dp8007827105902172]
 \draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,24) -- (130,499)(225,24) -- (225,499)(320,24) -- (320,499)(415,24) -- (415,499)(510,24) -- (510,499)(605,24) -- (605,499)(700,24) -- (700,499) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,119) -- (795,119)(35,214) -- (795,214)(35,309) -- (795,309)(35,404) -- (795,404) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ;
 
 % Text Node
@@ -432,7 +432,7 @@ En el problema anterior de 25 zonas vamos a añadir los siguientes pesos:
 \draw (542,352) node  [align=left] {Rosa};
 % Text Node
 \draw (745,346) node  [align=left] {Algoritmo};
-\end{tikzpicture}                                                         
+\end{tikzpicture}
 
 Con lo que obtenemos la solución:
 
@@ -518,5 +518,324 @@ Con lo que obtenemos la solución:
 	\item IR AGENTE1 Z8 Z3 NORTE
 	\item ENTREGAR AGENTE1 Z3 ALGORITMO1 PRINCESA1
 \end{enumerate}
+
+\section{Ejercicio 3}
+
+En primer lugar, para representar los tipos de terrenos he declarado un nuevo tipo llamado ``superficie'' del que he declarado las constantes: bosque, agua, precipicio, arena y piedra. Además he declarado los tipos bikini y zapatilla que son subtipos de objeto con lo que se considera que los bikinis y zapatillas también son objetos.
+
+Para poder representar esta nueva información he añadido el predicado (es ?sup ?z) que nos indica que la zona ?z es del tipo de superficie ?sup y los predicados (esbikini ?obj) y (eszapatilla ?obj) que nos indican si los objetos son zapatillas o bikinis.
+
+Para representar el conocimiento de la mochila ahora tenemos dos predicados nuevos que son (mochilavacia ?age) que nos dice que el agente ?age tiene la mochila vacía y (enlamochila ?age ?obj) que nos dice que el agente ?age tiene el objeto ?obj en la mochila.
+
+En cuanto a las acciones que han sido modificadas son dos ``ir'' y las nuevas acciones de ``meter-mochila'' y ``sacar-mochila''.
+
+La acción de ir ahora tiene nuevas precondiciones. Sumadas a las anteriores se pide ahora que la zona a la que se va a ir no sea precipicio, que no sea agua o que en caso de serlo tengamos un bikini en la mochila o en la mano y que o no sea bosque o que si lo es tengamos unas zapatillas en la mochila o en la mano. De esta forma no nos moveremos a los precipicios y sólo pasaremos por el agua con un bikini y por el bosque con unas zapatillas.
+
+La acción ``meter-mochila'' requiere que tengamos un objeto en la mano y la mochila vacía. Como efecto se cumple que tenemos la mano vacía, el objeto en la mochila y ya no tenemos la mochila vacía ni el objeto en la mano.
+
+La acción ``sacar-mochila'' requiere que tengamos un objeto en la mochila y la mano vacía. Como efecto se cumple que tenemos la mochila vacía, el objeto en la mano y ya no tenemos la mano vacía ni el objeto en la mochila.
+
+El problema para ser extendido requiere que definamos las superficies de cada zona y añadamos un bikini y unas zapatillas al menos, con lo que el mapa queda:
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172]
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,23) -- (130,498)(225,23) -- (225,498)(320,23) -- (320,498)(415,23) -- (415,498)(510,23) -- (510,498)(605,23) -- (605,498)(700,23) -- (700,498) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,118) -- (795,118)(35,213) -- (795,213)(35,308) -- (795,308)(35,403) -- (795,403) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ;
+
+% Text Node
+\draw (68,64) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Agente}};
+% Text Node
+\draw (265,63) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Princesa}};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (244,133) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (436,136) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (343,232) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (56,325) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (535,325) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (131,72) node  [align=left] {5};
+% Text Node
+\draw (227,78) node  [align=left] {4};
+% Text Node
+\draw (321,77) node  [align=left] {3};
+% Text Node
+\draw (415,81) node  [align=left] {8};
+% Text Node
+\draw (89,119) node  [align=left] {2};
+% Text Node
+\draw (174,117) node  [align=left] {5};
+% Text Node
+\draw (274,118) node  [align=left] {6};
+% Text Node
+\draw (370,118) node  [align=left] {5};
+% Text Node
+\draw (470,118) node  [align=left] {2};
+% Text Node
+\draw (130,160) node  [align=left] {3};
+% Text Node
+\draw (225,165) node  [align=left] {6};
+% Text Node
+\draw (321,165) node  [align=left] {5};
+% Text Node
+\draw (415,167) node  [align=left] {1};
+% Text Node
+\draw (84,215) node  [align=left] {1};
+% Text Node
+\draw (174,213) node  [align=left] {1};
+% Text Node
+\draw (273,215) node  [align=left] {1};
+% Text Node
+\draw (371,213) node  [align=left] {1};
+% Text Node
+\draw (467,216) node  [align=left] {1};
+% Text Node
+\draw (130,260) node  [align=left] {7};
+% Text Node
+\draw (227,264) node  [align=left] {2};
+% Text Node
+\draw (321,261) node  [align=left] {6};
+% Text Node
+\draw (414,264) node  [align=left] {2};
+% Text Node
+\draw (82,308) node  [align=left] {4};
+% Text Node
+\draw (179,309) node  [align=left] {3};
+% Text Node
+\draw (277,308) node  [align=left] {2};
+% Text Node
+\draw (370,307) node  [align=left] {6};
+% Text Node
+\draw (469,306) node  [align=left] {8};
+% Text Node
+\draw (130,355) node  [align=left] {8};
+% Text Node
+\draw (227,352) node  [align=left] {9};
+% Text Node
+\draw (321,356) node  [align=left] {2};
+% Text Node
+\draw (414,357) node  [align=left] {5};
+% Text Node
+\draw (512,359) node  [align=left] {2};
+% Text Node
+\draw (606,357) node  [align=left] {1};
+% Text Node
+\draw (701,357) node  [align=left] {4};
+% Text Node
+\draw (755,309) node  [align=left] {8};
+% Text Node
+\draw (751,403) node  [align=left] {6};
+% Text Node
+\draw (258,159) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oscar}};
+% Text Node
+\draw (453,68) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Principe}};
+% Text Node
+\draw (63,154) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro}};
+% Text Node
+\draw (458,159) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Leonardo}};
+% Text Node
+\draw (61,257) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bruja}};
+% Text Node
+\draw (361,259) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Manzana}};
+% Text Node
+\draw (267,348) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Profesor}};
+% Text Node
+\draw (542,352) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Rosa}};
+% Text Node
+\draw (745,346) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo}};
+% Text Node
+\draw (63,347) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bikini}};
+% Text Node
+\draw (454,254) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Zapatilla}};
+% Text Node
+\draw (67,89) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (160,87) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (256,97) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (350,95) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (450,98) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Bosque}};
+% Text Node
+\draw (67,182) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (160,188) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (252,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (352,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,191) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (61,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (157,281) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (257,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (351,287) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (441,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (61,377) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (162,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (253,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,380) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (636,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (361,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Precipicio}};
+% Text Node
+\draw (547,383) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Bosque}};
+% Text Node
+\draw (728,283) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (733,385) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (729,474) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+\end{tikzpicture}
+
+De esta forma obtenemos la solución:
+
+\begin{enumerate}
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z1 Z6 SUR BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z6 Z7 ESTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z7 Z12 SUR BIKINI1
+	\item IR AGENTE1 Z12 Z17 SUR BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z17 Z16 OESTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item COGER AGENTE1 Z16 BIKINI1
+	\item IR AGENTE1 Z16 Z17 ESTE BIKINI1
+	\item IR AGENTE1 Z17 Z18 ESTE BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z18 Z13 NORTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z13 Z14 ESTE BIKINI1
+	\item METER-MOCHILA AGENTE1 BIKINI1
+	\item IR AGENTE1 Z14 Z15 ESTE BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item COGER AGENTE1 Z15 ZAPATILLA1
+	\item IR AGENTE1 Z15 Z10 NORTE BIKINI1
+	\item IR AGENTE1 Z10 Z5 NORTE ZAPATILLA1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item ENTREGAR AGENTE1 Z5 ZAPATILLA1 PRINCIPE1
+	\item SACAR-MOCHILA AGENTE1 BIKINI1
+	\item IR AGENTE1 Z5 Z4 OESTE BIKINI1
+	\item METER-MOCHILA AGENTE1 BIKINI1
+	\item IR AGENTE1 Z4 Z3 OESTE BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z3 Z8 SUR BIKINI1
+	\item COGER AGENTE1 Z8 OSCAR1
+	\item IR AGENTE1 Z8 Z13 SUR BIKINI1
+	\item IR AGENTE1 Z13 Z18 SUR BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item ENTREGAR AGENTE1 Z18 OSCAR1 PROFESOR1
+	\item SACAR-MOCHILA AGENTE1 BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z18 Z13 NORTE BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z13 Z12 OESTE BIKINI1
+	\item IR AGENTE1 Z12 Z11 OESTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item METER-MOCHILA AGENTE1 BIKINI1
+	\item IR AGENTE1 Z11 Z6 NORTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item COGER AGENTE1 Z6 ORO1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z6 Z11 SUR BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item ENTREGAR AGENTE1 Z11 ORO1 BRUJA1
+	\item IR AGENTE1 Z11 Z12 ESTE BIKINI1
+	\item SACAR-MOCHILA AGENTE1 BIKINI1
+	\item IR AGENTE1 Z12 Z13 ESTE BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z13 Z8 NORTE BIKINI1
+	\item IR AGENTE1 Z8 Z3 NORTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item ENTREGAR AGENTE1 Z3 BIKINI1 PRINCESA1
+	\item IR AGENTE1 Z3 Z4 ESTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z4 Z9 SUR BIKINI1
+	\item IR AGENTE1 Z9 Z14 SUR BIKINI1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item COGER AGENTE1 Z14 MANZANA1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z14 Z9 NORTE BIKINI1
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z9 Z10 ESTE BIKINI1
+	\item ENTREGAR AGENTE1 Z10 MANZANA1 LEONARDO1
+\end{enumerate}
+
+En este caso para el parser he modificado un poco la sintaxis para adecuarla de la siguiente forma:
+
+numero de zonas:7
+
+Dominio:Ejercicio3
+
+Problema:Problema3
+
+V -$>$ z1[bruja1-bruja](bosque)=10=z3[bikini1-bikini](arena)=5=z6[zapatilla1-zapatilla](piedra)
+
+H -$>$ z2[player1-agente](piedra)=10=z3[](arena)=5=z4[](piedra)
+
+H -$>$ z5[oscar1-oscar,manzana1-manzana](bosque)=10=z6[](piedra)=5=z7[princesa1-princesa](piedra)
+
+Con lo que para el tipo de terreno lo situamos después de los personajes y objetos entre paréntesis. El cambio de corchetes a paréntesis es por simplicidad, puesto que son separadores distintos a los usados hasta el momento y por tanto podemos reutilizar de mejor manera el código previo.
 
 \end{document}
