@@ -77,16 +77,87 @@ Lo siguiente que se nos pide es que planteemos de forma manual un problema con 2
 
 La disposición del mapa que he dado es la siguiente:
 
-\begin{table}[H]
-	\begin{tabular}{|l|l|l|l|l|l|l|l|}
-		\hline
-		z1{[}agente{]} & z2  & z3{[}princesa{]}  & z4               & z5{[}principe{]}  &               &     &                    \\ \hline
-		z6{[}oro{]}    & z7  & z8{[}oscar{]}     & z9               & z10{[}leonardo{]} &               &     &                    \\ \hline
-		z11{[}bruja{]} & z12 & z13               & z14{[}manzana{]} & z15               &               &     & z25                \\ \hline
-		z16            & z17 & z18{[}profesor{]} & z19              & z20               & z21{[}rosa{]} & z22 & z23{[}algoritmo{]} \\ \hline
-		&     &                   &                  &                   &               &     & z24                \\ \hline
-	\end{tabular}
-\end{table}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,24) -- (130,499)(225,24) -- (225,499)(320,24) -- (320,499)(415,24) -- (415,499)(510,24) -- (510,499)(605,24) -- (605,499)(700,24) -- (700,499) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,119) -- (795,119)(35,214) -- (795,214)(35,309) -- (795,309)(35,404) -- (795,404) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ;
+
+% Text Node
+\draw (68,64) node  [align=left] {Agente};
+% Text Node
+\draw (265,63) node  [align=left] {Princesa};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (244,133) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (436,136) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (343,232) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (56,325) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (535,325) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (258,159) node  [align=left] {Oscar};
+% Text Node
+\draw (453,68) node  [align=left] {Principe};
+% Text Node
+\draw (63,154) node  [align=left] {Oro};
+% Text Node
+\draw (458,159) node  [align=left] {Leonardo};
+% Text Node
+\draw (61,257) node  [align=left] {Bruja};
+% Text Node
+\draw (362,259) node  [align=left] {Manzana};
+% Text Node
+\draw (267,348) node  [align=left] {Profesor};
+% Text Node
+\draw (542,352) node  [align=left] {Rosa};
+% Text Node
+\draw (745,346) node  [align=left] {Algoritmo};
+\end{tikzpicture}
 
 Partimos además de que el agente está orientado hacia el norte, tiene la mano vacía y el objetivo es que todos los personajes tengan un objeto.
 
@@ -193,5 +264,259 @@ Cabe decir que tenemos que poner los nombres de los tipos en minúscula para que
 Además, aunque el enunciado dice que los objetos de cada zona (entre corchetes) deben estar separados por espacios, he tomado la decisión de diseño de que los elementos estén separados por comas, pues de  esta forma los separadores son únicos para cada caso lo que hace que su división sea más sencilla.
 
 El resto es simplemente un programa en Python comentado que convierte este fichero en un fichero de problema PDDL completo usando el dominio descrito anteriormente.
+
+\section{Ejercicio 2}
+
+Para ajustar el dominio al nuevo problema tenemos que definir dos funciones:
+
+\begin{itemize}
+	\item (coste ?z1 ?z2): nos indica cuál es el coste de pasar de la zona ?z1 a la zona ?z2.
+	\item (costeTotal): es la suma del coste del camino que estamos recorriendo, es decir, cada vez que entremos a la acción ir sumaremos a esta función el coste del arco (coste ?z1 ?z2) tomado.
+\end{itemize}
+
+Para terminar de adecuar esto tenemos que modificar la función ``ir'' para que en los efectos se incremente (costeTotal) de la forma (increase (costeTotal) (coste ?z1 ?z2)) donde ``ir'' parte de que el agente está en la zona ?z1 y quiere desplazarse a la zona ?z2.
+
+Para la extensión del problema podemos tomar todo lo hecho y únicamente añadir en el bloque ``init'' la declaración de los pesos de las conexiones e inicializar (costeTotal) a 0.
+
+En el problema anterior de 25 zonas vamos a añadir los siguientes pesos:
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,24) -- (130,499)(225,24) -- (225,499)(320,24) -- (320,499)(415,24) -- (415,499)(510,24) -- (510,499)(605,24) -- (605,499)(700,24) -- (700,499) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,119) -- (795,119)(35,214) -- (795,214)(35,309) -- (795,309)(35,404) -- (795,404) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,24) -- (795,24) -- (795,499) -- (35,499) -- cycle ;
+
+% Text Node
+\draw (68,64) node  [align=left] {Agente};
+% Text Node
+\draw (265,63) node  [align=left] {Princesa};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (244,133) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (436,136) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (343,232) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (56,325) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (535,325) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (131,72) node  [align=left] {5};
+% Text Node
+\draw (227,78) node  [align=left] {4};
+% Text Node
+\draw (321,77) node  [align=left] {3};
+% Text Node
+\draw (415,81) node  [align=left] {8};
+% Text Node
+\draw (89,119) node  [align=left] {2};
+% Text Node
+\draw (174,117) node  [align=left] {5};
+% Text Node
+\draw (274,118) node  [align=left] {6};
+% Text Node
+\draw (370,118) node  [align=left] {5};
+% Text Node
+\draw (470,118) node  [align=left] {2};
+% Text Node
+\draw (130,160) node  [align=left] {3};
+% Text Node
+\draw (225,165) node  [align=left] {6};
+% Text Node
+\draw (321,165) node  [align=left] {5};
+% Text Node
+\draw (415,167) node  [align=left] {1};
+% Text Node
+\draw (84,215) node  [align=left] {1};
+% Text Node
+\draw (174,213) node  [align=left] {1};
+% Text Node
+\draw (273,215) node  [align=left] {1};
+% Text Node
+\draw (371,213) node  [align=left] {1};
+% Text Node
+\draw (467,216) node  [align=left] {1};
+% Text Node
+\draw (130,260) node  [align=left] {7};
+% Text Node
+\draw (227,264) node  [align=left] {2};
+% Text Node
+\draw (321,261) node  [align=left] {6};
+% Text Node
+\draw (414,264) node  [align=left] {2};
+% Text Node
+\draw (82,308) node  [align=left] {4};
+% Text Node
+\draw (179,309) node  [align=left] {3};
+% Text Node
+\draw (277,308) node  [align=left] {2};
+% Text Node
+\draw (370,307) node  [align=left] {6};
+% Text Node
+\draw (469,306) node  [align=left] {8};
+% Text Node
+\draw (130,355) node  [align=left] {8};
+% Text Node
+\draw (227,352) node  [align=left] {9};
+% Text Node
+\draw (321,356) node  [align=left] {2};
+% Text Node
+\draw (414,357) node  [align=left] {5};
+% Text Node
+\draw (512,359) node  [align=left] {2};
+% Text Node
+\draw (606,357) node  [align=left] {1};
+% Text Node
+\draw (701,357) node  [align=left] {4};
+% Text Node
+\draw (755,309) node  [align=left] {8};
+% Text Node
+\draw (751,403) node  [align=left] {6};
+% Text Node
+\draw (258,159) node  [align=left] {Oscar};
+% Text Node
+\draw (453,68) node  [align=left] {Principe};
+% Text Node
+\draw (63,154) node  [align=left] {Oro};
+% Text Node
+\draw (458,159) node  [align=left] {Leonardo};
+% Text Node
+\draw (61,257) node  [align=left] {Bruja};
+% Text Node
+\draw (362,259) node  [align=left] {Manzana};
+% Text Node
+\draw (267,348) node  [align=left] {Profesor};
+% Text Node
+\draw (542,352) node  [align=left] {Rosa};
+% Text Node
+\draw (745,346) node  [align=left] {Algoritmo};
+\end{tikzpicture}                                                         
+
+Con lo que obtenemos la solución:
+
+\begin{enumerate}
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z1 Z2 ESTE
+	\item IR AGENTE1 Z2 Z3 ESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z3 Z8 SUR
+	\item COGER AGENTE1 Z8 OSCAR1
+	\item IR AGENTE1 Z8 Z13 SUR
+	\item IR AGENTE1 Z13 Z18 SUR
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item ENTREGAR AGENTE1 Z18 OSCAR1 PROFESOR1
+	\item IR AGENTE1 Z18 Z13 NORTE
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z13 Z12 OESTE
+	\item IR AGENTE1 Z12 Z11 OESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z11 Z6 NORTE
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item COGER AGENTE1 Z6 ORO1
+	\item IR AGENTE1 Z6 Z11 SUR
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item ENTREGAR AGENTE1 Z11 ORO1 BRUJA1
+	\item IR AGENTE1 Z11 Z12 ESTE
+	\item IR AGENTE1 Z12 Z13 ESTE
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z13 Z8 NORTE
+	\item IR AGENTE1 Z8 Z3 NORTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z3 Z4 ESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z4 Z9 SUR
+	\item IR AGENTE1 Z9 Z14 SUR
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item COGER AGENTE1 Z14 MANZANA1
+	\item IR AGENTE1 Z14 Z9 NORTE
+	\item IR AGENTE1 Z9 Z4 NORTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z4 Z5 ESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z5 Z10 SUR
+	\item ENTREGAR AGENTE1 Z10 MANZANA1 LEONARDO1
+	\item IR AGENTE1 Z10 Z15 SUR
+	\item IR AGENTE1 Z15 Z20 SUR
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z20 Z21 ESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item COGER AGENTE1 Z21 ROSA1
+	\item IR AGENTE1 Z21 Z20 OESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z20 Z15 NORTE
+	\item IR AGENTE1 Z15 Z10 NORTE
+	\item IR AGENTE1 Z10 Z5 NORTE
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item ENTREGAR AGENTE1 Z5 ROSA1 PRINCIPE1
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z5 Z10 SUR
+	\item IR AGENTE1 Z10 Z15 SUR
+	\item IR AGENTE1 Z15 Z20 SUR
+	\item GIRAR-IZQUIERDA AGENTE1
+	\item IR AGENTE1 Z20 Z21 ESTE
+	\item IR AGENTE1 Z21 Z22 ESTE
+	\item IR AGENTE1 Z22 Z23 ESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item GIRAR-DERECHA AGENTE1
+	\item COGER AGENTE1 Z23 ALGORITMO1
+	\item IR AGENTE1 Z23 Z22 OESTE
+	\item IR AGENTE1 Z22 Z21 OESTE
+	\item IR AGENTE1 Z21 Z20 OESTE
+	\item IR AGENTE1 Z20 Z19 OESTE
+	\item IR AGENTE1 Z19 Z18 OESTE
+	\item GIRAR-DERECHA AGENTE1
+	\item IR AGENTE1 Z18 Z13 NORTE
+	\item IR AGENTE1 Z13 Z8 NORTE
+	\item IR AGENTE1 Z8 Z3 NORTE
+	\item ENTREGAR AGENTE1 Z3 ALGORITMO1 PRINCESA1
+\end{enumerate}
 
 \end{document}
