@@ -592,4 +592,230 @@ H -$>$ z5[oscar1-oscar,manzana1-manzana](bosque)=10=z6[](piedra)=5=z7[princesa1-
 
 Con lo que para el tipo de terreno lo situamos después de los personajes y objetos entre paréntesis. El cambio de corchetes a paréntesis es por simplicidad, puesto que son separadores distintos a los usados hasta el momento y por tanto podemos reutilizar de mejor manera el código previo.
 
+\section{Ejercicio 4}
+
+Para poder mantener un registro de los puntos del agente debemos declarar dos nuevas funciones. La primera de ellas es (puntosTotales) que mantendrá el conteo del número de puntos que lleva el agente por el momento y la función (puntos ?obj ?personaje) que nos indica cuántos puntos cuenta entregar el objeto ?obj al personaje ?personaje.
+
+Una vez definidas estas funciones tenemos que modificar la función entregar para que al entregar un objeto a un personaje mantengamos el conteo de puntos. Para ello es tan sencillo como sumar a la función (puntosTotales) el valor de (puntos ?obj ?per) donde ?obj es el objeto que se va a entregar y ?per el personaje al que se le va a entregar. Esta implementación nos obliga a definir en el problema los puntos que nos sumará entregar cada uno de los objetos (cada instancia) a cada uno de los personajes (cada instancia de personaje).
+
+El problema anterior es fácilmente extensible. Debemos inicializar en primer lugar la función (puntosTotales) a cero y además para cada objeto y personaje que tenemos debemos definir el número de puntos que nos va a repercutir entregar cada uno de estos objetos a cada personaje presente en el mapa. Además para que se tenga en cuenta el número de puntos debemos añadir alguna restricción en el goal o indicar al planificador que se maximice la métrica de puntos. En mi caso he optado por introducir en el goal una condición del tipo (>= (puntosTotales) x) para que la solución obtenga al menos x puntos.
+
+El problema de 25 zonas que he planteado es de la forma:
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,23) -- (130,498)(225,23) -- (225,498)(320,23) -- (320,498)(415,23) -- (415,498)(510,23) -- (510,498)(605,23) -- (605,498)(700,23) -- (700,498) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,118) -- (795,118)(35,213) -- (795,213)(35,308) -- (795,308)(35,403) -- (795,403) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ;
+
+% Text Node
+\draw (68,64) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Agente}};
+% Text Node
+\draw (265,63) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Princesa}};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (244,133) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (436,136) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (343,232) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (56,325) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (535,325) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (131,72) node  [align=left] {5};
+% Text Node
+\draw (227,78) node  [align=left] {4};
+% Text Node
+\draw (321,77) node  [align=left] {3};
+% Text Node
+\draw (415,81) node  [align=left] {8};
+% Text Node
+\draw (89,119) node  [align=left] {2};
+% Text Node
+\draw (174,117) node  [align=left] {5};
+% Text Node
+\draw (274,118) node  [align=left] {6};
+% Text Node
+\draw (370,118) node  [align=left] {5};
+% Text Node
+\draw (470,118) node  [align=left] {2};
+% Text Node
+\draw (130,160) node  [align=left] {3};
+% Text Node
+\draw (225,165) node  [align=left] {6};
+% Text Node
+\draw (321,165) node  [align=left] {5};
+% Text Node
+\draw (415,167) node  [align=left] {1};
+% Text Node
+\draw (84,215) node  [align=left] {1};
+% Text Node
+\draw (174,213) node  [align=left] {1};
+% Text Node
+\draw (273,215) node  [align=left] {1};
+% Text Node
+\draw (371,213) node  [align=left] {1};
+% Text Node
+\draw (467,216) node  [align=left] {1};
+% Text Node
+\draw (130,260) node  [align=left] {7};
+% Text Node
+\draw (227,264) node  [align=left] {2};
+% Text Node
+\draw (321,261) node  [align=left] {6};
+% Text Node
+\draw (414,264) node  [align=left] {2};
+% Text Node
+\draw (82,308) node  [align=left] {4};
+% Text Node
+\draw (179,309) node  [align=left] {3};
+% Text Node
+\draw (277,308) node  [align=left] {2};
+% Text Node
+\draw (370,307) node  [align=left] {6};
+% Text Node
+\draw (469,306) node  [align=left] {8};
+% Text Node
+\draw (130,355) node  [align=left] {8};
+% Text Node
+\draw (227,352) node  [align=left] {9};
+% Text Node
+\draw (321,356) node  [align=left] {2};
+% Text Node
+\draw (414,357) node  [align=left] {5};
+% Text Node
+\draw (512,359) node  [align=left] {2};
+% Text Node
+\draw (606,357) node  [align=left] {1};
+% Text Node
+\draw (701,357) node  [align=left] {4};
+% Text Node
+\draw (755,309) node  [align=left] {8};
+% Text Node
+\draw (751,403) node  [align=left] {6};
+% Text Node
+\draw (258,159) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oscar}};
+% Text Node
+\draw (453,68) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Principe}};
+% Text Node
+\draw (63,154) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro}};
+% Text Node
+\draw (458,159) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Leonardo}};
+% Text Node
+\draw (61,257) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bruja}};
+% Text Node
+\draw (361,259) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Manzana}};
+% Text Node
+\draw (267,348) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Profesor}};
+% Text Node
+\draw (542,352) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Rosa}};
+% Text Node
+\draw (745,346) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo}};
+% Text Node
+\draw (63,347) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bikini}};
+% Text Node
+\draw (454,254) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Zapatilla}};
+% Text Node
+\draw (67,89) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (160,87) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (256,97) node  [align=left] {Arena};
+% Text Node
+\draw (350,95) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (450,98) node  [align=left] {Piedra};
+% Text Node
+\draw (67,182) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (160,188) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (252,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (352,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,191) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (61,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (157,281) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (257,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (351,287) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (441,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (61,377) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (162,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (253,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,380) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (636,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (361,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Precipicio}};
+% Text Node
+\draw (547,383) node  [align=left] {Piedra};
+% Text Node
+\draw (728,283) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (733,385) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (729,474) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+\end{tikzpicture}
+
+He quitado algunas restricciones en cuanto a superficies con respecto al apartado anterior para facilitar la resolución y no agotar demasiado tiempo.
+
+En cuanto al parser en este caso se añade una línea de cabecera que indica el mínimo de puntos que debe tener el agente al final de la resolución y además en la escritura del problema debemos tener en cuenta que mi implementación requiere que para cada objeto y personaje se establezca el número de puntos que otorga entregar dicho objeto a cada personaje.
+
+De esta forma he introducido los datos de puntuaciones como un diccionario de diccionarios que contiene en el más general un diccionario con los nombres de los tipos de personajes y como valor en dicho diccionario un nuevo diccionario que contiene como clave el nombre de los tipos de los objetos excluyendo zapatillas y bikini que no tienen ningún tipo de puntuación. Gracias a este diccionario podemos escribir para cada personaje y objeto declarados la relación de puntaje que otorgan.
+
 \end{document}
