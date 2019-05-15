@@ -1,4 +1,4 @@
-﻿(define (domain Ejercicio3)
+﻿(define (domain Ejercicio4)
   (:requirements :strips :equality :typing)
   (:types  zona
            orientacion

@@ -1,5 +1,5 @@
-(define (problem Problema3)
-    (:domain Ejercicio3)
+(define (problem Problema4)
+    (:domain Ejercicio4)
     (:objects
         bruja1 - bruja
         bikini1 - bikini
@@ -8,7 +8,7 @@
         oscar1 - oscar
         manzana1 - manzana
         princesa1 - princesa
-        z2 z7 z1 z3 z6 z5 z4 - zona
+        z6 z2 z1 z5 z7 z4 z3 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -23,13 +23,13 @@
         (conectado z6 z5 oeste)
         (conectado z6 z7 este)
         (conectado z7 z6 oeste)
-        (es bosque z1)
-        (es piedra z2)
         (es piedra z6)
-        (es piedra z4)
-        (es arena z3)
-        (es piedra z7)
+        (es bosque z1)
         (es bosque z5)
+        (es piedra z2)
+        (es piedra z7)
+        (es arena z3)
+        (es piedra z4)
         (orientado player1 norte)
         (manovacia player1)
         (mochilavacia player1)
