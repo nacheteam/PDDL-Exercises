@@ -274,7 +274,7 @@
             (tieneobjeto bruja1)
             (tieneobjeto profesor1)
             (tieneobjeto leonardo1)
-            (< (costeTotal) 1500)
+            (< (costeTotal) 700)
             (>= (puntosTotales) 20)
           )
   )
