@@ -30,11 +30,22 @@ tipo_zonas = []
 agentes = []
 # Costes de zonas
 costes_zonas = []
+# Capacidad de los personajes
+capacidades_personajes = []
+# Coste total
+coste_total = ""
 
 for line in entrada:
+    # Obtenemos la cota del coste
+    if "coste_total_menor" in line:
+        coste_total = line.split(":")[1].strip()
     # Cogemos el número de zonas
     if "numero de zonas" in line:
         num_zonas = int(line.split(":")[1])
+    if "bolsillo" in line:
+        bolsillo = line[line.find(":")+1:].strip().split("[")[1].split("]")[0]
+        for bol in bolsillo.split(" "):
+            capacidades_personajes.append("(= (numeroObjetos " + bol.split(":")[0] + ") " + bol.split(":")[1] + ")")
     if "Dominio" in line:
         nombre_dominio = line.split(":")[1].strip()
     if "Problema" in line:
@@ -145,13 +156,16 @@ for per in lista_personajes:
     for obj in lista_objetos:
         problema.write("        (= (puntos " + obj.split("-")[0].strip() + " " + per.split("-")[0].strip() + ") " + puntos[per.split("-")[1].strip()][obj.split("-")[1].strip()] + ")\n")
 
+for capacidad in capacidades_personajes:
+    problema.write("        " + capacidad + "\n")
+
 problema.write("    )\n")
 problema.write("    (:goal (AND\n")
 for pers in personajes:
     if not pers.split("-")[1] in ["agente", "oscar", "manzana", "rosa", "algoritmo", "oro", "bikini", "zapatilla"]:
-        problema.write("          (tieneobjeto " + " " + pers.split("-")[0] + ")\n")
+        problema.write("          (tieneobjeto" + " " + pers.split("-")[0] + ")\n")
 
-problema.write("          (< (costeTotal) 200)\n")
+problema.write("          (< (costeTotal) " + coste_total + ")\n")
 problema.write("          (>= (puntosTotales) " + minimo_puntos + ")\n")
 problema.write("          )\n")
 problema.write("    )\n")

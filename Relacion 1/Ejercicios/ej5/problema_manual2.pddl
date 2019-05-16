@@ -7,11 +7,11 @@
             bruja1 - bruja
             profesor1 - profesor
             leonardo1 - leonardo
-            oscar1 - oscar
-            manzana1 - manzana
-            rosa1 - rosa
-            algoritmo1 - algoritmo
-            oro1 - oro
+            oscar1 oscar2 - oscar
+            manzana1 manzana2 - manzana
+            rosa1 rosa2 - rosa
+            algoritmo1 algoritmo2 algoritmo3 - algoritmo
+            oro1 oro2 oro3 - oro
             zapatilla1 - zapatilla
             bikini1 - bikini
   )
@@ -113,7 +113,7 @@
     (es arena z16)
     (es arena z17)
     (es arena z18)
-    (es precipicio z19)
+    (es piedra z19)
     (es arena z20)
     (es piedra z21)
     (es arena z22)
@@ -236,6 +236,54 @@
     (= (puntos oro1 profesor1) 1)
     (= (puntos oro1 principe1) 10)
 
+    (= (puntos oscar2 leonardo1) 10)
+    (= (puntos oscar2 princesa1) 5)
+    (= (puntos oscar2 bruja1) 4)
+    (= (puntos oscar2 profesor1) 3)
+    (= (puntos oscar2 principe1) 1)
+
+    (= (puntos rosa2 leonardo1) 1)
+    (= (puntos rosa2 princesa1) 10)
+    (= (puntos rosa2 bruja1) 5)
+    (= (puntos rosa2 profesor1) 4)
+    (= (puntos rosa2 principe1) 3)
+
+    (= (puntos manzana2 leonardo1) 3)
+    (= (puntos manzana2 princesa1) 1)
+    (= (puntos manzana2 bruja1) 10)
+    (= (puntos manzana2 profesor1) 5)
+    (= (puntos manzana2 principe1) 4)
+
+    (= (puntos algoritmo2 leonardo1) 4)
+    (= (puntos algoritmo2 princesa1) 3)
+    (= (puntos algoritmo2 bruja1) 1)
+    (= (puntos algoritmo2 profesor1) 10)
+    (= (puntos algoritmo2 principe1) 5)
+
+    (= (puntos oro2 leonardo1) 5)
+    (= (puntos oro2 princesa1) 4)
+    (= (puntos oro2 bruja1) 3)
+    (= (puntos oro2 profesor1) 1)
+    (= (puntos oro2 principe1) 10)
+
+    (= (numeroObjetos princesa1) 3)
+    (= (numeroObjetos principe1) 2)
+    (= (numeroObjetos bruja1) 1)
+    (= (numeroObjetos profesor1) 1)
+    (= (numeroObjetos leonardo1) 3)
+
+    (= (puntos algoritmo3 leonardo1) 4)
+    (= (puntos algoritmo3 princesa1) 3)
+    (= (puntos algoritmo3 bruja1) 1)
+    (= (puntos algoritmo3 profesor1) 10)
+    (= (puntos algoritmo3 principe1) 5)
+
+    (= (puntos oro3 leonardo1) 5)
+    (= (puntos oro3 princesa1) 4)
+    (= (puntos oro3 bruja1) 3)
+    (= (puntos oro3 profesor1) 1)
+    (= (puntos oro3 principe1) 10)
+
     ; z1[ag] ==5== z2 ==4== z3[psa] =3== z4 ====8==== z5[pcpe]
     ; ==2==       =5=       ==6==       =5=           ===2===
     ; z6[oro] ==3= z7 ==6== z8[osc] =5== z9 ====1==== z10[leo]
@@ -263,6 +311,15 @@
     (en algoritmo1 z23)
     (en oro1 z6)
 
+    (en oscar2 z8)
+    (en manzana2 z14)
+    (en rosa2 z21)
+    (en algoritmo2 z23)
+    (en oro2 z6)
+
+    (en algoritmo3 z16)
+    (en oro3 z1)
+
     (en bikini1 z16)
     (en zapatilla1 z15)
     (eszapatilla zapatilla1)
@@ -275,7 +332,7 @@
             (tieneobjeto profesor1)
             (tieneobjeto leonardo1)
             (< (costeTotal) 700)
-            (>= (puntosTotales) 20)
+            (>= (puntosTotales) 50)
           )
   )
 )

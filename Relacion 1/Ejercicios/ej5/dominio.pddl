@@ -39,6 +39,7 @@
       (costeTotal)
       (puntosTotales)
       (puntos ?obj - objeto ?pers - personaje)
+      (numeroObjetos ?per - personaje)
   )
 
   (:action girar-izquierda
@@ -171,13 +172,15 @@
     :precondition (and
                     (en ?age ?z1)
                     (en ?per ?z1)
+                    (> (numeroObjetos ?per) 0)
                     (enlamano ?age ?obj)
                   )
     :effect (and
               (manovacia ?age)
               (not (enlamano ?age ?obj))
-              (tieneobjeto ?per)
               (increase (puntosTotales) (puntos ?obj ?per))
+              (tieneobjeto ?per)
+              (decrease (numeroObjetos ?per) 1)
             )
   )
 
