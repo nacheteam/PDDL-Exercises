@@ -1065,7 +1065,7 @@ Para los dos problemas que he propuesto he dado como capacidades las siguientes:
 \begin{table}[H]
 	\begin{tabular}{|c|c|c|c|c|c|}
 		\hline
-		{\ul \textbf{Problema | Capacidades}} & {\ul \textbf{Princesa1}} & {\ul \textbf{Principe1}} & {\ul \textbf{Bruja1}} & {\ul \textbf{Leonardo1}} & {\ul \textbf{Profesor1}} \\ \hline
+		{\ul \textbf{Problema / Capacidades}} & {\ul \textbf{Princesa1}} & {\ul \textbf{Principe1}} & {\ul \textbf{Bruja1}} & {\ul \textbf{Leonardo1}} & {\ul \textbf{Profesor1}} \\ \hline
 		\textbf{1}                            & 1                        & 2                        & 1                     & 1                        & 2                        \\ \hline
 		\textbf{2}                            & 3                        & 2                        & 1                     & 1                        & 3                        \\ \hline
 	\end{tabular}
@@ -1324,5 +1324,465 @@ En el primero de los problemas he definido como restricciones que el puntaje tot
 En el segundo de los problemas he definido las restricciones de forma opuesta al primer problema. En este caso he definido el problema para que el agente 1 tenga al menos 25 puntos y el agente 2 tenga como mínimo 30 puntos siendo el mínimo de puntos totales 30, es decir que sólo con cumplir la cota del segundo agente ya se cumple la cota del puntaje total.
 
 En cuanto al parser la modificación es exactamente igual que la implementada en el apartado anterior pues el formato es el mismo y sólo cambia la función que utiliza los datos de entrada en PDDL.
+
+\section{Ejercicio 7}
+
+Para este ejercicio no he definido ningún tipo extra, en su defecto he cogido y he definido dos predicados (espicker ?agente) y (esdealer ?agente) que nos indican si un agente es picker o dealer.
+
+En cuanto a modificación en las funciones he modificado la función entrega dividiéndola en dos: entrega-agente y entrega-personaje.
+
+La primera de ellas (entrega-agente) es la acción de que un agente entregue un objeto a otro, en concreto un picker a un dealer. De esta forma como precondiciones debemos exigir que el agente que tiene el objeto lo tenga en la mano y sea un picker y el agente al que se le va a dar el objeto sea un dealer y además tenga la mano vacía. Además ambos deben de estar en la misma zona.
+
+De esta forma los efectos que produce la acción son que el agente que entrega el objeto queda con la mano vacía y ya no posee el objeto y el segundo agente (el dealer) ya no tiene la mano vacía y posee el objeto.
+
+La segunda es la acción que modela que un dealer entregue a un personaje un objeto. De esta forma se requiere que el agente sea un dealer y el resto del comportamiento es idéntico al definido previamente.
+
+En cuanto a la modificación del problema en primer lugar tenemos que especificar qué es cada agente (picker o dealer) y cambiar el goal, pues ahora la restricción de puntosObtenidos para un agente sólo se puede pedir si ese agente es de tipo dealer, pues el picker nunca podrá entregar un objeto a un personaje.
+
+Para probar el dominio he diseñado dos problemas de forma manual con los siguiente mapas:
+
+En el ejemplo 1:
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,23) -- (130,498)(225,23) -- (225,498)(320,23) -- (320,498)(415,23) -- (415,498)(510,23) -- (510,498)(605,23) -- (605,498)(700,23) -- (700,498) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,118) -- (795,118)(35,213) -- (795,213)(35,308) -- (795,308)(35,403) -- (795,403) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ;
+
+% Text Node
+\draw (64,60) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Agente1}};
+% Text Node
+\draw (265,63) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Princesa1}};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (239,131) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (432,133) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (336,228) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (51,321) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (527,318) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (131,72) node  [align=left] {5};
+% Text Node
+\draw (227,78) node  [align=left] {4};
+% Text Node
+\draw (321,77) node  [align=left] {3};
+% Text Node
+\draw (415,81) node  [align=left] {8};
+% Text Node
+\draw (89,119) node  [align=left] {2};
+% Text Node
+\draw (174,117) node  [align=left] {5};
+% Text Node
+\draw (274,118) node  [align=left] {6};
+% Text Node
+\draw (370,118) node  [align=left] {5};
+% Text Node
+\draw (470,118) node  [align=left] {2};
+% Text Node
+\draw (130,160) node  [align=left] {3};
+% Text Node
+\draw (225,165) node  [align=left] {6};
+% Text Node
+\draw (321,165) node  [align=left] {5};
+% Text Node
+\draw (415,167) node  [align=left] {1};
+% Text Node
+\draw (84,215) node  [align=left] {1};
+% Text Node
+\draw (174,213) node  [align=left] {1};
+% Text Node
+\draw (273,215) node  [align=left] {1};
+% Text Node
+\draw (371,213) node  [align=left] {1};
+% Text Node
+\draw (467,216) node  [align=left] {1};
+% Text Node
+\draw (130,260) node  [align=left] {7};
+% Text Node
+\draw (227,264) node  [align=left] {2};
+% Text Node
+\draw (321,261) node  [align=left] {6};
+% Text Node
+\draw (414,264) node  [align=left] {2};
+% Text Node
+\draw (82,308) node  [align=left] {4};
+% Text Node
+\draw (179,309) node  [align=left] {3};
+% Text Node
+\draw (277,308) node  [align=left] {2};
+% Text Node
+\draw (370,307) node  [align=left] {6};
+% Text Node
+\draw (469,306) node  [align=left] {8};
+% Text Node
+\draw (130,355) node  [align=left] {8};
+% Text Node
+\draw (227,352) node  [align=left] {9};
+% Text Node
+\draw (321,356) node  [align=left] {2};
+% Text Node
+\draw (414,357) node  [align=left] {5};
+% Text Node
+\draw (512,359) node  [align=left] {2};
+% Text Node
+\draw (606,357) node  [align=left] {1};
+% Text Node
+\draw (701,357) node  [align=left] {4};
+% Text Node
+\draw (755,309) node  [align=left] {8};
+% Text Node
+\draw (751,403) node  [align=left] {6};
+% Text Node
+\draw (262,146) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oscar1}};
+% Text Node
+\draw (453,68) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Principe1}};
+% Text Node
+\draw (63,154) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro1}};
+% Text Node
+\draw (459,169) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Leonardo1}};
+% Text Node
+\draw (61,257) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Bruja1}};
+% Text Node
+\draw (363,248) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Manzana1}};
+% Text Node
+\draw (267,348) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Profesor1}};
+% Text Node
+\draw (533,339) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Rosa1}};
+% Text Node
+\draw (745,346) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo1}};
+% Text Node
+\draw (63,340) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bikini1}};
+% Text Node
+\draw (454,254) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Zapatilla1}};
+% Text Node
+\draw (63,99) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (160,87) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (256,97) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (350,95) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (450,98) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (66,193) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (160,188) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (252,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (352,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,191) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (61,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (157,281) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (257,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (349,290) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (441,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (61,384) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (162,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (253,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,380) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (636,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (361,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Precipicio}};
+% Text Node
+\draw (539,384) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (728,283) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (733,385) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (729,474) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (260,169) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oscar2}};
+% Text Node
+\draw (364,269) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Manzana2}};
+% Text Node
+\draw (548,360) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Rosa2}};
+% Text Node
+\draw (746,364) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo2}};
+% Text Node
+\draw (66,171) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro2}};
+% Text Node
+\draw (76,363) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo3}};
+% Text Node
+\draw (59,78) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro3}};
+% Text Node
+\draw (453,150) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Agente2}};
+\end{tikzpicture}
+
+En el ejemplo 2:
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.9,xscale=0.9][H]
+%uncomment if require: \path (0,722); %set diagram left start at 0, and has height of 722
+
+%Shape: Grid [id:dp8007827105902172] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 255; green, 255; blue, 255 }  ,fill opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (130,23) -- (130,498)(225,23) -- (225,498)(320,23) -- (320,498)(415,23) -- (415,498)(510,23) -- (510,498)(605,23) -- (605,498)(700,23) -- (700,498) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,118) -- (795,118)(35,213) -- (795,213)(35,308) -- (795,308)(35,403) -- (795,403) ; \draw  [color={rgb, 255:red, 75; green, 75; blue, 75 }  ,draw opacity=1 ] (35,23) -- (795,23) -- (795,498) -- (35,498) -- cycle ;
+
+% Text Node
+\draw (64,60) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Agente1}};
+% Text Node
+\draw (265,63) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Princesa1}};
+% Text Node
+\draw (53,38) node  [align=left] {z1};
+% Text Node
+\draw (148,42) node  [align=left] {z2};
+% Text Node
+\draw (245,35) node  [align=left] {z3};
+% Text Node
+\draw (336,38) node  [align=left] {z4};
+% Text Node
+\draw (433,42) node  [align=left] {z5};
+% Text Node
+\draw (56,133) node  [align=left] {z6};
+% Text Node
+\draw (149,133) node  [align=left] {z7};
+% Text Node
+\draw (239,131) node  [align=left] {z8};
+% Text Node
+\draw (339,133) node  [align=left] {z9};
+% Text Node
+\draw (432,133) node  [align=left] {z10};
+% Text Node
+\draw (56,232) node  [align=left] {z11};
+% Text Node
+\draw (152,230) node  [align=left] {z12};
+% Text Node
+\draw (244,232) node  [align=left] {z13};
+% Text Node
+\draw (336,228) node  [align=left] {z14};
+% Text Node
+\draw (439,230) node  [align=left] {z15};
+% Text Node
+\draw (51,321) node  [align=left] {z16};
+% Text Node
+\draw (152,326) node  [align=left] {z17};
+% Text Node
+\draw (247,327) node  [align=left] {z18};
+% Text Node
+\draw (341,323) node  [align=left] {z19};
+% Text Node
+\draw (438,323) node  [align=left] {z20};
+% Text Node
+\draw (527,318) node  [align=left] {z21};
+% Text Node
+\draw (625,324) node  [align=left] {z22};
+% Text Node
+\draw (720,322) node  [align=left] {z23};
+% Text Node
+\draw (717,419) node  [align=left] {z24};
+% Text Node
+\draw (720,231) node  [align=left] {z25};
+% Text Node
+\draw (131,72) node  [align=left] {5};
+% Text Node
+\draw (227,78) node  [align=left] {4};
+% Text Node
+\draw (321,77) node  [align=left] {3};
+% Text Node
+\draw (415,81) node  [align=left] {8};
+% Text Node
+\draw (89,119) node  [align=left] {2};
+% Text Node
+\draw (174,117) node  [align=left] {5};
+% Text Node
+\draw (274,118) node  [align=left] {6};
+% Text Node
+\draw (370,118) node  [align=left] {5};
+% Text Node
+\draw (470,118) node  [align=left] {2};
+% Text Node
+\draw (130,160) node  [align=left] {3};
+% Text Node
+\draw (225,165) node  [align=left] {6};
+% Text Node
+\draw (321,165) node  [align=left] {5};
+% Text Node
+\draw (415,167) node  [align=left] {1};
+% Text Node
+\draw (84,215) node  [align=left] {1};
+% Text Node
+\draw (174,213) node  [align=left] {1};
+% Text Node
+\draw (273,215) node  [align=left] {1};
+% Text Node
+\draw (371,213) node  [align=left] {1};
+% Text Node
+\draw (467,216) node  [align=left] {1};
+% Text Node
+\draw (130,260) node  [align=left] {7};
+% Text Node
+\draw (227,264) node  [align=left] {2};
+% Text Node
+\draw (321,261) node  [align=left] {6};
+% Text Node
+\draw (414,264) node  [align=left] {2};
+% Text Node
+\draw (82,308) node  [align=left] {4};
+% Text Node
+\draw (179,309) node  [align=left] {3};
+% Text Node
+\draw (277,308) node  [align=left] {2};
+% Text Node
+\draw (370,307) node  [align=left] {6};
+% Text Node
+\draw (469,306) node  [align=left] {8};
+% Text Node
+\draw (130,355) node  [align=left] {8};
+% Text Node
+\draw (227,352) node  [align=left] {9};
+% Text Node
+\draw (321,356) node  [align=left] {2};
+% Text Node
+\draw (414,357) node  [align=left] {5};
+% Text Node
+\draw (512,359) node  [align=left] {2};
+% Text Node
+\draw (606,357) node  [align=left] {1};
+% Text Node
+\draw (701,357) node  [align=left] {4};
+% Text Node
+\draw (755,309) node  [align=left] {8};
+% Text Node
+\draw (751,403) node  [align=left] {6};
+% Text Node
+\draw (262,146) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oscar1}};
+% Text Node
+\draw (453,68) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Principe1}};
+% Text Node
+\draw (63,154) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Oro1}};
+% Text Node
+\draw (459,169) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Leonardo1}};
+% Text Node
+\draw (61,257) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Bruja1}};
+% Text Node
+\draw (363,248) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Manzana1}};
+% Text Node
+\draw (267,348) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Profesor1}};
+% Text Node
+\draw (533,339) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Rosa1}};
+% Text Node
+\draw (745,346) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Algoritmo1}};
+% Text Node
+\draw (63,340) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Bikini1}};
+% Text Node
+\draw (454,254) node  [align=left] {\textcolor[rgb]{0.82,0.01,0.11}{Zapatilla1}};
+% Text Node
+\draw (63,99) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (160,87) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (256,97) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (350,95) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (450,98) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (66,193) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (160,188) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (252,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (352,189) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,191) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (61,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (157,281) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (257,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (349,290) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (441,284) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Agua}};
+% Text Node
+\draw (61,384) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (162,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (253,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (447,380) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (636,376) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Arena}};
+% Text Node
+\draw (361,378) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Precipicio}};
+% Text Node
+\draw (539,384) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (728,283) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (733,385) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (729,474) node  [align=left] {\textcolor[rgb]{0.29,0.56,0.89}{Piedra}};
+% Text Node
+\draw (453,150) node  [align=left] {\textcolor[rgb]{0.96,0.65,0.14}{Agente2}};
+\end{tikzpicture}
+
+Donde en el ejemplo 1 se coloca al agente 1 como el picker y al 2 como el dealer y se piden como goals que los puntos totales sean mayor o igual a 30, el coste total menor o igual que 1500 y los puntos obtenidos por el segundo agente mayores o igual que 20.
+
+En el problema 2 se han colocado muchos menos objetos y además el coste total se pide que sea menor que 1500, los puntos totales mayor o igual que 20 y los puntos obtenidos por el agente 2 al menos 15 donde el agente 1 es picker y el 2 el dealer.
 
 \end{document}
