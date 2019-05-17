@@ -109,9 +109,19 @@ for line in entrada:
 problema.write("(define (problem " + nombre_problema + ")\n")
 problema.write("    (:domain " + nombre_dominio + ")\n")
 
+pickers = []
+dealers = []
+
 problema.write("    (:objects\n")
 for personaje in personajes:
-    problema.write("        " + personaje.split("-")[0] + " - " + personaje.split("-")[1] + "\n")
+    if "picker" in personaje:
+        pickers.append(personaje.split("-")[0])
+        problema.write("        " + personaje.split("-")[0] + " - agente\n")
+    elif "dealer" in personaje:
+        dealers.append(personaje.split("-")[0])
+        problema.write("        " + personaje.split("-")[0] + " - agente\n")
+    else:
+        problema.write("        " + personaje.split("-")[0] + " - " + personaje.split("-")[1] + "\n")
 problema.write("        ")
 for zona in list(set(zonas)):
     problema.write(zona + " ")
@@ -123,6 +133,11 @@ for relacion in relaciones:
 
 for tipo_zona in list(set(tipo_zonas)):
     problema.write("        " + tipo_zona + "\n")
+
+for p in pickers:
+    agentes.append(p)
+for d in dealers:
+    agentes.append(d)
 
 for agente in agentes:
     problema.write("        (orientado " + agente + " norte)\n")
@@ -137,6 +152,12 @@ for pers in personajes:
         problema.write("        (esbikini " + pers.split("-")[0] + ")\n")
     if "zapatilla" in pers.split("-")[1]:
         problema.write("        (eszapatilla " + pers.split("-")[0] + ")\n")
+
+for picker in pickers:
+    problema.write("        (espicker " + picker + ")\n")
+
+for dealer in dealers:
+    problema.write("        (esdealer " + dealer + ")\n")
 
 for coste in costes_zonas:
     problema.write("        " + coste + "\n")
@@ -173,7 +194,7 @@ for capacidad in capacidades_personajes:
 problema.write("    )\n")
 problema.write("    (:goal (AND\n")
 for pers in personajes:
-    if not pers.split("-")[1] in ["agente", "oscar", "manzana", "rosa", "algoritmo", "oro", "bikini", "zapatilla"]:
+    if not pers.split("-")[1] in ["agente", "oscar", "manzana", "rosa", "algoritmo", "oro", "bikini", "zapatilla", "picker", "dealer"]:
         problema.write("          (tieneobjeto" + " " + pers.split("-")[0] + ")\n")
 
 problema.write("          (< (costeTotal) " + coste_total + ")\n")

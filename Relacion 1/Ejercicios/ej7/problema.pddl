@@ -1,5 +1,5 @@
-(define (problem Problema6)
-    (:domain Ejercicio6)
+(define (problem Problema7)
+    (:domain Ejercicio7)
     (:objects
         bruja1 - bruja
         rosa1 - rosa
@@ -15,7 +15,7 @@
         manzana1 - manzana
         princesa1 - princesa
         player2 - agente
-        z5 z1 z6 z3 z4 z2 z7 - zona
+        z4 z1 z6 z3 z7 z2 z5 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -30,19 +30,19 @@
         (conectado z6 z5 oeste)
         (conectado z6 z7 este)
         (conectado z7 z6 oeste)
-        (es arena z3)
-        (es piedra z7)
-        (es piedra z4)
-        (es piedra z6)
-        (es bosque z1)
-        (es bosque z5)
         (es piedra z2)
-        (orientado player1 norte)
-        (manovacia player1)
-        (mochilavacia player1)
+        (es bosque z1)
+        (es piedra z6)
+        (es piedra z7)
+        (es bosque z5)
+        (es arena z3)
+        (es piedra z4)
         (orientado player2 norte)
         (manovacia player2)
         (mochilavacia player2)
+        (orientado player1 norte)
+        (manovacia player1)
+        (mochilavacia player1)
         (en bruja1 z1)
         (en rosa1 z1)
         (en bikini1 z3)
@@ -59,6 +59,8 @@
         (en player2 z7)
         (esbikini bikini1)
         (eszapatilla zapatilla1)
+        (espicker player2)
+        (esdealer player1)
         (= (coste z3 z1) 10)
         (= (coste z1 z3) 10)
         (= (coste z6 z3) 5)
@@ -74,7 +76,6 @@
         (= (costeTotal) 0)
         (= (puntosTotales) 0)
         (= (puntosObtenidos player1) 0)
-        (= (puntosObtenidos player2) 0)
         (= (puntos rosa1 bruja1) 5)
         (= (puntos oro2 bruja1) 3)
         (= (puntos manzana2 bruja1) 10)
@@ -107,7 +108,6 @@
           (< (costeTotal) 500)
           (>= (puntosTotales) 20)
           (>= (puntosObtenidos player1) 10)
-          (>= (puntosObtenidos player2) 10)
           )
     )
 )
