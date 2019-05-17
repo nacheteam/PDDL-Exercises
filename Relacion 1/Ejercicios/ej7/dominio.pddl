@@ -185,6 +185,7 @@
               (manovacia ?age1)
               (not (enlamano ?age1 ?obj))
               (enlamano ?age2 ?obj)
+              (not (manovacia ?age2))
             )
   )
 
