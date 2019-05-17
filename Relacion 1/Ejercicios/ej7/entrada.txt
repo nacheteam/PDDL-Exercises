@@ -1,0 +1,10 @@
+numero de zonas:7
+Dominio:Ejercicio6
+Problema:Problema6
+puntos_totales:20
+puntos_jugador:[player1:10 player2:10]
+coste_total_menor:500
+bolsillo:[bruja1:2 princesa1:3 leonardo1:1]
+V -> z1[bruja1-bruja,rosa1-rosa](bosque)=10=z3[bikini1-bikini,leonardo1-leonardo](arena)=5=z6[zapatilla1-zapatilla](piedra)
+H -> z2[player1-agente](piedra)=10=z3[oro2-oro,manzana2-manzana](arena)=5=z4[algoritmo1-algoritmo,oro1-oro](piedra)
+H -> z5[oscar1-oscar,manzana1-manzana](bosque)=10=z6[](piedra)=5=z7[princesa1-princesa,player2-agente](piedra)
