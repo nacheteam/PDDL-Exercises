@@ -20,6 +20,7 @@
     ; z16 z17 z18 z19 z20 z21 z22 z23
     ;                             z24
 
+    ; Declaramos la conexión de las zonas
     (conectado z1 z2 este)
     (conectado z2 z1 oeste)
     (conectado z2 z3 este)
@@ -99,8 +100,12 @@
     ; z11[bja] z12      z13      z14[man] z15                        z25
     ; z16      z17      z18[pro] z19      z20      z21[rsa] z22      z23[algo]
     ;                                                                z24
+
+    ; Declaramos la orientación del agente y que tiene la mano vacía
     (orientado agente1 norte)
     (manovacia agente1)
+
+    ; Declaramos la posición de los personajes
     (en agente1 z1)
     (en princesa1 z3)
     (en principe1 z5)
@@ -108,6 +113,7 @@
     (en leonardo1 z10)
     (en profesor1 z18)
 
+    ; Declaramos la posición de los objetos
     (en oscar1 z8)
     (en manzana1 z14)
     (en rosa1 z21)
@@ -115,6 +121,7 @@
     (en oro1 z6)
   )
   (:goal (AND
+            ; Requerimos que todos los personajes tengan al menos un objeto.
             (tieneobjeto princesa1)
             (tieneobjeto principe1)
             (tieneobjeto bruja1)
