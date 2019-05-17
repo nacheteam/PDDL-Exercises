@@ -1339,6 +1339,8 @@ La segunda es la acción que modela que un dealer entregue a un personaje un obj
 
 En cuanto a la modificación del problema en primer lugar tenemos que especificar qué es cada agente (picker o dealer) y cambiar el goal, pues ahora la restricción de puntosObtenidos para un agente sólo se puede pedir si ese agente es de tipo dealer, pues el picker nunca podrá entregar un objeto a un personaje.
 
+Además la función de coger ahora requiere que el agente que va coger el objeto sea un picker, de esta forma un  se completa el ciclo de funcionamiento donde para dejarle un objeto a un personaje primero el picker lo coge, después se lo entrega al dealer y por último es el dealer el que entrega el objeto al personaje final.
+
 Para probar el dominio he diseñado dos problemas de forma manual con los siguiente mapas:
 
 En el ejemplo 1:
