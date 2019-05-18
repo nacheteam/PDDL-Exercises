@@ -341,7 +341,7 @@
     ; Declaramos la posición del bikini y las zapatillas
     (en bikini1 z16)
     (en zapatilla1 z15)
-    ; Indicamos que son zapatillas y
+    ; Indicamos que son zapatillas y bikini
     (eszapatilla zapatilla1)
     (esbikini bikini1)
   )
