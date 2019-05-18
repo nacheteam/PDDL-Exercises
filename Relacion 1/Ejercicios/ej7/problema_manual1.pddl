@@ -207,10 +207,10 @@
     ; Inicializamos el coste total a 0
     (= (costeTotal) 0)
 
-    ; Inicializamos el número total de puntos a
+    ; Inicializamos el número total de puntos a 0
     (= (puntosTotales) 0)
 
-    ; Indicamos el número de puntos que da entregar cada objeto a cada
+    ; Indicamos el número de puntos que da entregar cada objeto a cada personaje
     (= (puntos oscar1 leonardo1) 10)
     (= (puntos oscar1 princesa1) 5)
     (= (puntos oscar1 bruja1) 4)
