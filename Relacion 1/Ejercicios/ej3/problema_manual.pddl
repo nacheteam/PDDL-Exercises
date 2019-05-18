@@ -251,7 +251,7 @@
             (tieneobjeto bruja1)
             (tieneobjeto profesor1)
             (tieneobjeto leonardo1)
-            ; Requerimos que la longitud total sea menor que 200
+            ; Requerimos que la longitud total sea menor que 1000
             (< (costeTotal) 1000)
           )
   )
