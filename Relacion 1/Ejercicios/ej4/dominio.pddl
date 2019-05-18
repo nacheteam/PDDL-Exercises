@@ -49,7 +49,7 @@
 
   ; Definición de las funciones
   (:functions
-    ; Indica el coste de ir de una zona a otra
+      ; Indica el coste de ir de una zona a otra
 	    (coste ?z1 ?z2 - zona)
       ; Almacena el coste total del camino
       (costeTotal)
