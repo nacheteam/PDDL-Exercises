@@ -22,6 +22,7 @@
     ; z16 z17 z18 z19 z20 z21 z22 z23
     ;                             z24
 
+    ; Declaramos la conexión de las zonas
     (conectado z1 z2 este)
     (conectado z2 z1 oeste)
     (conectado z2 z3 este)
@@ -95,6 +96,7 @@
     (conectado z23 z24 sur)
     (conectado z24 z23 norte)
 
+    ; Declaramos el tipo de superficie de cada zona
     (es piedra z1)
     (es piedra z2)
     (es arena z3)
@@ -121,7 +123,7 @@
     (es piedra z24)
     (es piedra z25)
 
-
+    ; Declaramos el coste de ir de una zona a otra
     (= (coste z1 z2) 5)
     (= (coste z2 z1) 5)
     (= (coste z2 z3) 4)
@@ -202,10 +204,13 @@
     (= (coste z23 z24) 6)
     (= (coste z24 z23) 6)
 
+    ; Inicializamos el coste total a 0
     (= (costeTotal) 0)
 
+    ; Inicializamos el número total de puntos a
     (= (puntosTotales) 0)
 
+    ; Indicamos el número de puntos que da entregar cada objeto a cada
     (= (puntos oscar1 leonardo1) 10)
     (= (puntos oscar1 princesa1) 5)
     (= (puntos oscar1 bruja1) 4)
@@ -284,6 +289,7 @@
     (= (puntos oro3 profesor1) 1)
     (= (puntos oro3 principe1) 10)
 
+    ; Declaramos el número de puntos del agente 2
     (= (puntosObtenidos agente2) 0)
 
     ; z1[ag] ==5== z2 ==4== z3[psa] =3== z4 ====8==== z5[pcpe]
@@ -296,26 +302,30 @@
     ;                                                                                =6=
     ;                                                                                z24
 
-
+    ; Declaramos la orientación del agente 1 y que tiene la mano y la mochila vacías
     (orientado agente1 norte)
     (manovacia agente1)
     (mochilavacia agente1)
     (en agente1 z1)
 
+    ; Declaramos la orientación del agente 2 y que tiene la mano y la mochila vacías
     (orientado agente2 norte)
     (manovacia agente2)
     (mochilavacia agente2)
     (en agente2 z10)
 
+    ; Declaramos que el agente 1 es picker y el 2 dealer
     (espicker agente1)
     (esdealer agente2)
 
+    ; Declaramos la posición de los personajes
     (en princesa1 z3)
     (en principe1 z5)
     (en bruja1 z11)
     (en leonardo1 z10)
     (en profesor1 z18)
 
+    ; Declaramos la posición de los objetos
     (en oscar1 z8)
     (en manzana1 z14)
     (en rosa1 z21)
@@ -331,19 +341,25 @@
     (en algoritmo3 z16)
     (en oro3 z1)
 
+    ; Declaramos la posición del bikini y las zapatillas
     (en bikini1 z16)
     (en zapatilla1 z15)
+    ; Indicamos que son zapatillas y bikini
     (eszapatilla zapatilla1)
     (esbikini bikini1)
   )
   (:goal (AND
+            ; Requerimos que todos los personajes tengan al menos un objeto.
             (tieneobjeto princesa1)
             (tieneobjeto principe1)
             (tieneobjeto bruja1)
             (tieneobjeto profesor1)
             (tieneobjeto leonardo1)
+            ; Requerimos que la longitud total sea menor que 1500
             (< (costeTotal) 1500)
+            ; Requerimos que el número de puntos totales sea mayor que 30
             (>= (puntosTotales) 30)
+            ; Requerimos que el dealer obtenga al menos 20 puntos.
             (>= (puntosObtenidos agente2) 20)
           )
   )
