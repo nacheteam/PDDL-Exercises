@@ -1,8 +1,9 @@
+import sys
 import re
 
 # Nombres de los ficheros de entrada y salida
-SALIDA = "problema.pddl"
-ENTRADA = "entrada.txt"
+ENTRADA = sys.argv[1]
+SALIDA = sys.argv[2]
 
 # Abrimos los ficheros
 problema = open("problema.pddl", "w")
