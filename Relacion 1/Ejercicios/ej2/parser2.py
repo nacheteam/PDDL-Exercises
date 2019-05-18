@@ -1,4 +1,5 @@
 import sys
+import re
 
 # Nombres de los ficheros de entrada y salida
 ENTRADA = sys.argv[1]

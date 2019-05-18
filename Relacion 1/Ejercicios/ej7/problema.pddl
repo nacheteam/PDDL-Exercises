@@ -15,7 +15,7 @@
         manzana1 - manzana
         princesa1 - princesa
         player2 - agente
-        z4 z1 z6 z3 z7 z2 z5 - zona
+        z5 z4 z2 z3 z7 z6 z1 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -30,13 +30,13 @@
         (conectado z6 z5 oeste)
         (conectado z6 z7 este)
         (conectado z7 z6 oeste)
-        (es piedra z2)
-        (es bosque z1)
-        (es piedra z6)
-        (es piedra z7)
-        (es bosque z5)
-        (es arena z3)
         (es piedra z4)
+        (es piedra z6)
+        (es bosque z1)
+        (es piedra z7)
+        (es piedra z2)
+        (es arena z3)
+        (es bosque z5)
         (orientado player2 norte)
         (manovacia player2)
         (mochilavacia player2)

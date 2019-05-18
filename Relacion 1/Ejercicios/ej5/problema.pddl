@@ -12,7 +12,7 @@
         oscar1 - oscar
         manzana1 - manzana
         princesa1 - princesa
-        z3 z5 z6 z4 z2 z7 z1 - zona
+        z5 z3 z1 z6 z4 z7 z2 - zona
     )
     (:init
         (conectado z1 z3 sur)
@@ -27,13 +27,13 @@
         (conectado z6 z5 oeste)
         (conectado z6 z7 este)
         (conectado z7 z6 oeste)
-        (es bosque z5)
-        (es bosque z1)
-        (es arena z3)
-        (es piedra z6)
-        (es piedra z4)
         (es piedra z7)
         (es piedra z2)
+        (es bosque z5)
+        (es piedra z4)
+        (es arena z3)
+        (es bosque z1)
+        (es piedra z6)
         (orientado player1 norte)
         (manovacia player1)
         (mochilavacia player1)
