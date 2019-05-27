@@ -73,6 +73,18 @@
 	  	      (board ?p ?a ?c1)
 		        (mover-avion ?a ?c1 ?c)
 		        (debark ?p ?a ?c )))
+  (:method Case3
+    :precondition (and
+                    (at ?p - person ?c1 - city)
+                    (at ?a - aircraft ?c2 - city)
+                  )
+    :tasks (
+              (mover-avion ?a ?c2 ?c1)
+              (board ?p ?a ?c1)
+              (mover-avion ?a ?c1 ?c)
+              (debark ?p ?a ?c)
+            )
+  )
 	)
 
 (:task mover-avion
