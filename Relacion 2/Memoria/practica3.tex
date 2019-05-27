@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{tikz}
+
+\usepackage{subcaption}
+\usepackage{pgfplots}
+
+% Para la tabla
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+
+\author{Ignacio Aguilera Martos}
+\title{Práctica 3 \\ Técnicas de los Sistemas Inteligentes}
+\date{\today}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{10px}
+
+
+\begin{document}
+	\maketitle
+
+	\tableofcontents
+
+	\newpage
+
+\section{Ejercicio 1}
+
+El primero de los ejercicios nos pide que solucionemos el dominio del que se nos provee para resolver el primero de los problemas HTN. En este caso podemos observar que en la tarea transport-person hay un caso que no está contemplado, que es precisamente aquel que plantea el problema. Este caso es que el avión y la persona estén en diferentes ciudades para lo que, en primer lugar, el avión se deberá desplazar a la ciudad en la que está la persona y posteriormente ir a la ciudad destino.
+
+Esto en código HTN se refleja poniendo como precondiciones que la persona esté en la ciudad ?c1 y el avión en la ciudad ?c2. Como tareas resultado obtenemos mover el avión de la ciudad ?c2 a ?c1, realizar el embarque, mover el avión de ?c1 a ?c y por último el desembarque.
+
+\end{document}
