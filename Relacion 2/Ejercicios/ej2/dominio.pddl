@@ -101,6 +101,14 @@
           (fly ?a ?c1 ?c2)
          )
    )
+
+   (:method no-fuel-suficiente
+     :precondition (not (hay-fuel ?a ?c1 ?c2))
+     :tasks (
+              (refuel ?a ?c1)
+              (mover-avion ?a ?c1 ?c2)
+            )
+     )
   )
 
   (:durative-action board
