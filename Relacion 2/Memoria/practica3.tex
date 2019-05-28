@@ -43,4 +43,8 @@ El primero de los ejercicios nos pide que solucionemos el dominio del que se nos
 
 Esto en código HTN se refleja poniendo como precondiciones que la persona esté en la ciudad ?c1 y el avión en la ciudad ?c2. Como tareas resultado obtenemos mover el avión de la ciudad ?c2 a ?c1, realizar el embarque, mover el avión de ?c1 a ?c y por último el desembarque.
 
+\section{Ejercicio 2}
+
+Para resolver este segundo ejercicio tenemos que observar que la tarea mover-avion no contempla el caso de que el avión no tenga suficiente combustible para moverse a la siguiente ciudad. Por tanto para resolver el ejercicio debemos añadir un nuevo método que tenga como precondición que no hay suficiente fuel para mover el avión de una ciudad a otra y por tanto tenga como tareas repostar el avión en la ciudad actual y volver a llamar a la tarea mover-avión para que ahora sí se mueva si es que la capacidad de combustible le da la posibilidad de hacerlo.
+
 \end{document}
