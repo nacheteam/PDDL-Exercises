@@ -47,4 +47,10 @@ Esto en código HTN se refleja poniendo como precondiciones que la persona esté
 
 Para resolver este segundo ejercicio tenemos que observar que la tarea mover-avion no contempla el caso de que el avión no tenga suficiente combustible para moverse a la siguiente ciudad. Por tanto para resolver el ejercicio debemos añadir un nuevo método que tenga como precondición que no hay suficiente fuel para mover el avión de una ciudad a otra y por tanto tenga como tareas repostar el avión en la ciudad actual y volver a llamar a la tarea mover-avión para que ahora sí se mueva si es que la capacidad de combustible le da la posibilidad de hacerlo.
 
+\section{Ejercicio 3}
+
+En primer lugar he añadido dos predicados (hay-fuel-rapido ?a ?c1 ?c2) y (hay-fuel-lento ?a ?c1 ?c2) que son dos predicados derivados que indican que hay fuel suficiente para ir de forma rápida o lenta por el avión a desde la ciudad 1 a la 2. Además estos predicados derivados tienen como requerimiento, no sólo que haya combustible suficiente para ir de una ciudad a otra, si no además que este incremento de uso de combustible no sobrepase el límite máximo de combustible a usar definido por el problema.
+
+Para darle prioridad a los transportes rápidos he definido en la tarea mover-avion el método fuel-suficiente-lento y fuel-suficiente-rapido. En el rápido se pide como precondición que haya fuel rápido para ir de una ciudad a otra y como tareas tiene la tarea de volar rápido de la ciudad 1 a la 2. En el caso del método fuel lento tiene como precondiciones que haya fuel lento y además que no haya fuel rápido, para que de esta forma se priorice el uso del método de volar rápido antes que el lento siempre que estemos en los requisitos de combustible.
+
 \end{document}
