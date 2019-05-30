@@ -82,23 +82,32 @@
 
    (:method Case2 ;si no est� en la ciudad destino, pero avion y persona est�n en la misma ciudad
 	  :precondition (and (at ?p - person ?c1 - city)
-			                 (at ?a - aircraft ?c1 - city))
+			                 (at ?a - aircraft ?c1 - city)
+                       (destino ?p ?c))
 
 	  :tasks (
 	  	      (board ?p ?a ?c1)
-		        (mover-avion ?a ?c1 ?c)
-		        (debark ?p ?a ?c )))
+            (transport-person ?p ?c)
+		        )
   (:method Case3
     :precondition (and
-                    (at ?p - person ?c1 - city)
-                    (at ?a - aircraft ?c2 - city)
+                    (not (at ?p - person ?c1 - city))
+                    (at ?a - aircraft ?c1 - city)
                   )
     :tasks (
-              (mover-avion ?a ?c2 ?c1)
-              (board ?p ?a ?c1)
               (mover-avion ?a ?c1 ?c)
-              (debark ?p ?a ?c)
+              (transport-person ?p ?c)
             )
+  )
+  (:method Case4
+    :precondition (and
+                      (at ?a - aircraft ?c)
+                      (in ?p ?a - aircraft)
+                      (destino ?p ?c)
+                  )
+    :tasks (
+            (debark ?p ?a ?c)
+      )
   )
 	)
 
