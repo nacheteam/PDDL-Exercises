@@ -23,6 +23,7 @@
              (different ?x ?y) (igual ?x ?y)
              (hay-fuel-lento ?a ?c1 ?c2)
              (hay-fuel-rapido ?a ?c1 ?c2)
+             (destino ?x - person ?y - city)
              )
 (:functions (fuel ?a - aircraft)
             (distance ?c1 - city ?c2 - city)
