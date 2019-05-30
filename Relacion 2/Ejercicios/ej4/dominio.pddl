@@ -36,6 +36,8 @@
             (boarding-time)
             (debarking-time)
             (fuel-limit)
+            (capacidad-personas ?a - aircraft)
+            (personas-dentro ?a - aircraft)
             )
 
 ;; el consecuente "vac�o" se representa como "()" y significa "siempre verdad"
@@ -139,9 +141,14 @@
    :parameters (?p - person ?a - aircraft ?c - city)
    :duration (= ?duration (boarding-time))
    :condition (and  (at ?p ?c)
-                    (at ?a ?c))
+                    (at ?a ?c)
+                    (< (personas-dentro ?a) (capacidad-personas ?a))
+                )
    :effect (and  (not (at ?p ?c))
-                 (in ?p ?a)))
+                 (in ?p ?a)
+                 (increase (personas-dentro ?a) 1)
+            )
+  )
 
   (:durative-action debark
    :parameters (?p - person ?a - aircraft ?c - city)
@@ -149,7 +156,10 @@
    :condition (and (in ?p ?a)
                    (at ?a ?c))
    :effect (and  (not (in ?p ?a))
-                 (at ?p ?c)))
+                 (at ?p ?c)
+                 (decrease (personas-dentro ?a) 1)
+            )
+  )
 
   (:durative-action fly
    :parameters (?a - aircraft ?c1 ?c2 - city)
