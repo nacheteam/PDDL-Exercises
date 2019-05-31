@@ -42,13 +42,6 @@
             (maximo-tiempo-vuelo ?a)
             )
 
-;; el consecuente "vac�o" se representa como "()" y significa "siempre verdad"
-(:derived
-  (igual ?x ?x) ())
-
-(:derived
-  (different ?x ?y) (not (igual ?x ?y)))
-
 (:derived
   (hay-fuel-rapido ?a ?c1 ?c2)
   (and
@@ -103,8 +96,8 @@
     )
     (:method Case4
       :precondition (and
-                      (in ?p ?a - aircraft)
-                      (at ?a - aircraft ?c1 - aircraft)
+                      (in ?p - person ?a - aircraft)
+                      (at ?a - aircraft ?c1 - city)
                       (not (destino ?p ?c1))
                     )
       :tasks (
@@ -116,29 +109,25 @@
 
 (:task montar-persona
   :parameters (?a - aircraft ?c1 - city)
-  (:method caso-base
-    :precondition ()
-    :tasks ()
-    )
   (:method montar
     :precondition (and
                     (at ?p - person ?c1)
                     (not (destino ?p - person ?c1))
-                    (at ?a ?c1)
+                    (at ?a - aircraft ?c1)
                   )
     :tasks (
       (board ?p ?a ?c1)
       (montar-persona ?a ?c1)
       )
     )
-)
-
-(:task bajar-persona
-  :parameters (?a - aircraft ?c1 - city)
   (:method caso-base
     :precondition ()
     :tasks ()
     )
+)
+
+(:task bajar-persona
+  :parameters (?a - aircraft ?c1 - city)
   (:method montar
     :precondition (and
                     (in ?p - person ?a)
@@ -150,12 +139,16 @@
       (bajar-persona ?a ?c1)
       )
     )
+  (:method caso-base
+    :precondition ()
+    :tasks ()
+    )
 )
 
 (:task mover-avion
  :parameters (?a - aircraft ?c1 - city ?c2 -city)
  (:method caso-base
-   :precondition (at ?a? c2)
+   :precondition (at ?a ?c2)
    :tasks ()
    )
  (:method fuel-suficiente-rapido
@@ -222,7 +215,7 @@
    :condition (and  (at ?a ?c1)
                     (>= (fuel ?a)
                            (* (distance ?c1 ?c2) (slow-burn ?a)))
-                    (< ?duration (maximo-tiempo-vuelo ?a))
+                    ;(< ?duration (maximo-tiempo-vuelo ?a))
               )
    :effect (and  (not (at ?a ?c1))
                  (at ?a ?c2)
@@ -237,7 +230,7 @@
    :condition (and  (at ?a ?c1)
                     (>= (fuel ?a)
                            (* (distance ?c1 ?c2) (fast-burn ?a)))
-                    (< ?duration (maximo-tiempo-vuelo ?a))
+                    ;(< ?duration (maximo-tiempo-vuelo ?a))
               )
    :effect (and (not (at ?a ?c1))
                  (at ?a ?c2)
