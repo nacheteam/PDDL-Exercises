@@ -72,48 +72,92 @@
   )
   )
 
-(:task transport-person
-	:parameters (?p - person ?c - city)
+  (:task transport-person
+  	:parameters (?p - person ?c - city)
 
-  (:method Case1 ; si la persona est� en la ciudad no se hace nada
-	 :precondition (at ?p ?c)
-	 :tasks ()
-   )
+    (:method Case1 ; si la persona est� en la ciudad no se hace nada
+  	 :precondition (at ?p ?c)
+  	 :tasks ()
+     )
 
 
-   (:method Case2 ;si no est� en la ciudad destino, pero avion y persona est�n en la misma ciudad
-	  :precondition (and (at ?p - person ?c1 - city)
-			                 (at ?a - aircraft ?c1 - city)
-                       (destino ?p ?c))
+     (:method Case2 ;si no est� en la ciudad destino, pero avion y persona est�n en la misma ciudad
+  	  :precondition (and (at ?p - person ?c1 - city)
+  			                 (at ?a - aircraft ?c1 - city))
 
-	  :tasks (
-	  	      (board ?p ?a ?c1)
-            (transport-person ?p ?c)
-		        )
-  (:method Case3
-    :precondition (and
-                    (not (at ?p - person ?c1 - city))
-                    (at ?a - aircraft ?c1 - city)
-                  )
-    :tasks (
-              (mover-avion ?a ?c1 ?c)
-              (transport-person ?p ?c)
-            )
-  )
-  (:method Case4
-    :precondition (and
-                      (at ?a - aircraft ?c)
+  	  :tasks (
+  	  	      (montar-persona ?a ?c1)
+  		        (mover-avion ?a ?c1 ?c)
+  		        (bajar-persona ?a ?c)))
+    (:method Case3
+      :precondition (and
+                      (at ?p - person ?c1 - city)
+                      (at ?a - aircraft ?c2 - city)
+                    )
+      :tasks (
+                (mover-avion ?a ?c2 ?c1)
+                (montar-persona ?a ?c1)
+                (mover-avion ?a ?c1 ?c)
+                (bajar-persona ?a ?c)
+              )
+    )
+    (:method Case4
+      :precondition (and
                       (in ?p ?a - aircraft)
-                      (destino ?p ?c)
+                      (at ?a - aircraft ?c1 - aircraft)
+                      (not (destino ?p ?c1))
+                    )
+      :tasks (
+          (mover-avion ?a ?c1 ?c)
+          (bajar-persona ?a ?c)
+        )
+      )
+  	)
+
+(:task montar-persona
+  :parameters (?a - aircraft ?c1 - city)
+  (:method caso-base
+    :precondition ()
+    :tasks ()
+    )
+  (:method montar
+    :precondition (and
+                    (at ?p - person ?c1)
+                    (not (destino ?p - person ?c1))
+                    (at ?a ?c1)
                   )
     :tasks (
-            (debark ?p ?a ?c)
+      (board ?p ?a ?c1)
+      (montar-persona ?a ?c1)
       )
-  )
-	)
+    )
+)
+
+(:task bajar-persona
+  :parameters (?a - aircraft ?c1 - city)
+  (:method caso-base
+    :precondition ()
+    :tasks ()
+    )
+  (:method montar
+    :precondition (and
+                    (in ?p - person ?a)
+                    (destino ?p - person ?c1)
+                    (at ?a ?c1)
+                  )
+    :tasks (
+      (debark ?p ?a ?c1)
+      (bajar-persona ?a ?c1)
+      )
+    )
+)
 
 (:task mover-avion
  :parameters (?a - aircraft ?c1 - city ?c2 -city)
+ (:method caso-base
+   :precondition (at ?a? c2)
+   :tasks ()
+   )
  (:method fuel-suficiente-rapido
    :precondition (hay-fuel-rapido ?a ?c1 ?c2)
    :tasks (
