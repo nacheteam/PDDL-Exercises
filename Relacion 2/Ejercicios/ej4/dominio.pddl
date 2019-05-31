@@ -40,6 +40,7 @@
             (capacidad-personas ?a - aircraft)
             (personas-dentro ?a - aircraft)
             (maximo-tiempo-vuelo ?a)
+            (tiempo-vuelo ?a)
             )
 
 (:derived
@@ -215,14 +216,17 @@
    :condition (and  (at ?a ?c1)
                     (>= (fuel ?a)
                            (* (distance ?c1 ?c2) (slow-burn ?a)))
-                    ;(< ?duration (maximo-tiempo-vuelo ?a))
+                    (< (tiempo-vuelo ?a) (maximo-tiempo-vuelo ?a))
               )
    :effect (and  (not (at ?a ?c1))
                  (at ?a ?c2)
                 (increase (total-fuel-used)
                            (* (distance ?c1 ?c2) (slow-burn ?a)))
                 (decrease (fuel ?a)
-                           (* (distance ?c1 ?c2) (slow-burn ?a)))))
+                           (* (distance ?c1 ?c2) (slow-burn ?a)))
+                (increase (tiempo-vuelo ?a) (/ (distance ?c1 ?c2) (slow-speed ?a)))
+              )
+  )
 
   (:durative-action zoom
    :parameters (?a - aircraft ?c1 ?c2 - city)
@@ -230,14 +234,17 @@
    :condition (and  (at ?a ?c1)
                     (>= (fuel ?a)
                            (* (distance ?c1 ?c2) (fast-burn ?a)))
-                    ;(< ?duration (maximo-tiempo-vuelo ?a))
+                    (< (tiempo-vuelo ?a) (maximo-tiempo-vuelo ?a))
               )
    :effect (and (not (at ?a ?c1))
                  (at ?a ?c2)
                  (increase (total-fuel-used)
                            (* (distance ?c1 ?c2) (fast-burn ?a)))
                 (decrease (fuel ?a)
-                           (* (distance ?c1 ?c2) (fast-burn ?a)))))
+                           (* (distance ?c1 ?c2) (fast-burn ?a)))
+                (increase (tiempo-vuelo ?a) (/ (distance ?c1 ?c2) (fast-speed ?a)))
+            )
+)
 
   (:durative-action refuel
    :parameters (?a - aircraft ?c - city)
