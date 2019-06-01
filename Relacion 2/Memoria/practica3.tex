@@ -78,4 +78,14 @@ Para el tercer punto vamos a definir dos funciones:
 
 Con ello ahora cuando llamemos a la primitiva fly o zoom comprobaremos que el avión no ha excedido sus horas máximas de vuelo.
 
+Cabe decir que el límite de fuel ahora pasa de ser global a ser por cada avión.
+
+Vamos a explicar ahora los tres problemas diseñados:
+
+\begin{enumerate}
+	\item El primer problema que he definido impone unas restricciones más fuertes sobre el combustible que sobre las horas máximas de vuelo de cada avión, para poder comprobar que esto funciona. Para ello he posicionado 8 personas y 4 aviones. Además he puesto orígenes comunes para las personas (esto es que hay mas de una persona en alguna ciudad) y destinos comunes (esto es que hay varias personas con el mismo destino). Los aviones están todos posicionados en ciudades diferentes. El primero de ellos tiene una restricción de combustible de 1500, el segundo de 2400, el tercero de 3200 y el cuarto de 4000. De esta forma forzosamente vamos a necesitar dos o tres aviones mínimo para resolver el problema. En este problema la restricción de horas máximas de vuelo para todos los aviones es de 200 horas.
+	\item El segundo problema toma la misma estructura que el primero, pero en este caso establecemos un uso máximo de combustible para todos los aviones de 5000 de esta forma no representa un gran problema. La restricción temporal en este caso sí se acentúa siendo de 30, 70, 50 y 140 horas para cada uno de los aviones. De esta forma el combustible no será la variable condicionante realmente en el problema, si no el número de horas de vuelo de cada avión.
+	\item El tercer problema es mucho más grande que los dos anteriores. En este caso tenemos 25 personas y 8 aviones. Hay varias ciudades que comparten personas y todos los aviones están posicionados en ciudades distintas. Las restricciones de combustible son de 7500, 10000, 10000, 1000, 7500, 10000, 10000 y 7500 respectivamente. Las restricciones temporales son 500,400,200,700,500,500,200 y 500. De esta forma proponemos un problema largo y más complejo aunque no podemos retorcer este problema en exceso pues el tiempo de resolución pasa a ser demasiado alto.
+\end{enumerate}
+
 \end{document}
