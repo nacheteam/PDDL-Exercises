@@ -55,6 +55,27 @@ Para darle prioridad a los transportes rápidos he definido en la tarea mover-av
 
 \section{Ejercicio 4}
 
+En primer lugar vamos a ver los cambios que he realizado en el dominio para resolver el problema.
 
+Para poder resolver el primer apartado tenemos que contabilizar el número de pasajeros que tiene un avión dentro. Para ello he definido una nueva función (personas-dentro ?a) que nos indica el número de personas que tiene dentro el avión ?a. Para ello cada vez que entramos en la primitiva board o debark, como efectos, se incluye incrementar en uno o decrementar en uno esta función dependiendo de si estamos en la acción board o debark. Además para representar la capacidad en personas de un avión he definido otra nueva función (capacidad-personas ?a) que indica la capacidad de personas del avión ?a. Estas dos funciones son empleadas en el método board para comprobar como precondición si hemos excedido o no el límite de personas que pueden embarcar en un avión según su capacidad.
+
+Para el segundo apartado, siguiendo las pistas dadas por el enunciado, he definido un predicado (destino ?p ?c) que nos dice que el destino de la persona ?p es la ciudad ?c. Para poder efectuar el embarque y desembarque de varias personas a la vez tenemos que modificar el comportamiento de la tarea transport-person.
+
+En primer lugar he definido dos nuevas tareas:
+
+\begin{itemize}
+	\item montar-persona: esta tarea tiene como parámetros un avión y una ciudad, de forma que la persona que se va a montar en el avión puede ser inferida. Tiene dos métodos, el primero de ellos es el que se encarga de montar a una persona en un avión. Como precondiciones tiene que la persona esté en la ciudad pasada como parámetro, que el avión esté también en dicha ciudad y que la ciudad en la que se encuentra tanto la persona como el avión no sea el destino de la persona. Las tareas que producen este método son (board ?p ?a ?c1) que se encarga de montar a la persona en el avión y de nuevo la tarea (montar-persona ?a ?c1) que se encarga de volver a comprobar si siguen habiendo personas en la ciudad que puedan montarse en el avión. Por último tenemos el caso base que no tiene precondiciones ni tareas asociadas, de forma que si no se puede aplicar el método anterior no se haga nada y se salga de la recursividad.
+	\item bajar-persona: esta tarea tiene como parámetros una ciudad y un avión de forma que la persona que se va a bajar del avión no viene dada como parámetro y puede ser inferida. Esta tarea, como la anterior tiene dos métodos. El primero de ellos es el que se encarga de bajar a una persona del avión. Como precondiciones tiene que la persona esté dentro del avión, que la ciudad sea el destino de la persona y que el avión esté en la ciudad. De esta forma las tareas que produce el método son (debark ?p ?a ?c1) que indica que la persona se baja del avión y además (bajar-persona ?a ?c1) para que vuelva a comprobar si hay personas que se pueden bajar del avión. Para salir de la recursividad tenemos un método caso base que no tiene precondiciones ni tareas asociadas.
+\end{itemize}
+
+Ahora debemos modificar el funcionamiento de la tarea transport-person. En primer lugar seguimos manteniendo el caso base de que la persona ya esté en la ciudad, en cuyo caso no hacemos nada. Si la persona y el avión están en la misma ciudad llamamos a montar-persona, mover-avion y bajar-persona. De esta forma podemos aplicar las dos tareas nuevas que hemos definido que nos permiten bajar y subir a varias personas. En el caso de que el avión y la persona estén en ciudades distintas primero tenemos que mover el avión a la ciudad de la personas y después aplicar la misma rutina que antes para poder permitir que se suban y bajen varias personas. Pot último nos queda un caso que contemplar, este es que la persona ya esté dentro del avión y no sea su ciudad de destino aquella en la que esté el avión. Este caso puede darse pues puede haberse montado previamente en otra ciudad. De esta forma las tareas asociadas serían mover-avion y bajar-persona.
+
+Para el tercer punto vamos a definir dos funciones:
+\begin{itemize}
+	\item (maximo-tiempo-vuelo ?a): indica el máximo tiempo de vuelo por avión.
+	\item (tiempo-vuelo ?a): indica el tiempo que ha estado volando un avión.
+\end{itemize}
+
+Con ello ahora cuando llamemos a la primitiva fly o zoom comprobaremos que el avión no ha excedido sus horas máximas de vuelo.
 
 \end{document}
