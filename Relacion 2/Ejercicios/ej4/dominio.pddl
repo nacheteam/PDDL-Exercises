@@ -33,7 +33,7 @@
             (fast-burn ?a - aircraft)
             (capacity ?a - aircraft)
             (refuel-rate ?a - aircraft)
-            (total-fuel-used)
+            (total-fuel-used ?a - aircraft)
             (boarding-time)
             (debarking-time)
             (fuel-limit ?a - aircraft)
@@ -47,7 +47,7 @@
   (hay-fuel-rapido ?a ?c1 ?c2)
   (and
       (>= (fuel ?a) (* (fast-burn ?a) (distance ?c1 ?c2)))
-      (>= (fuel-limit ?a) (+ (total-fuel-used) (* (fast-burn ?a) (distance ?c1 ?c2))))
+      (>= (fuel-limit ?a) (+ (total-fuel-used ?a) (* (fast-burn ?a) (distance ?c1 ?c2))))
   )
 )
 
@@ -62,7 +62,7 @@
   (hay-fuel-lento ?a - aircraft ?c1 - city ?c2 - city)
   (and
       (>= (fuel ?a) (* (slow-burn ?a) (distance ?c1 ?c2)))
-      (>= (fuel-limit ?a) (+ (total-fuel-used) (* (slow-burn ?a) (distance ?c1 ?c2))))
+      (>= (fuel-limit ?a) (+ (total-fuel-used ?a) (* (slow-burn ?a) (distance ?c1 ?c2))))
   )
   )
 
@@ -220,7 +220,7 @@
               )
    :effect (and  (not (at ?a ?c1))
                  (at ?a ?c2)
-                (increase (total-fuel-used)
+                (increase (total-fuel-used ?a)
                            (* (distance ?c1 ?c2) (slow-burn ?a)))
                 (decrease (fuel ?a)
                            (* (distance ?c1 ?c2) (slow-burn ?a)))
@@ -238,7 +238,7 @@
               )
    :effect (and (not (at ?a ?c1))
                  (at ?a ?c2)
-                 (increase (total-fuel-used)
+                 (increase (total-fuel-used ?a)
                            (* (distance ?c1 ?c2) (fast-burn ?a)))
                 (decrease (fuel ?a)
                            (* (distance ?c1 ?c2) (fast-burn ?a)))
@@ -251,7 +251,7 @@
    :duration (= ?duration (/ (- (capacity ?a) (fuel ?a)) (refuel-rate ?a)))
    :condition (and  (> (capacity ?a) (fuel ?a))
                    (at ?a ?c)
-                   (< (total-fuel-used) (fuel-limit ?a)))
+                   (< (total-fuel-used ?a) (fuel-limit ?a)))
    :effect (assign (fuel ?a) (capacity ?a)))
 
 
