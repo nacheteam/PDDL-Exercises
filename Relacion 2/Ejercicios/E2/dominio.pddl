@@ -21,8 +21,7 @@
 (:predicates (at ?x - (either person aircraft) ?c - city)
              (in ?p - person ?a - aircraft)
              (different ?x ?y) (igual ?x ?y)
-             (hay-fuel-lento ?a ?c1 ?c2)
-             (hay-fuel-rapido ?a ?c1 ?c2)
+             (hay-fuel ?a ?c1 ?c2)
              )
 (:functions (fuel ?a - aircraft)
             (distance ?c1 - city ?c2 - city)
@@ -35,7 +34,6 @@
             (total-fuel-used)
             (boarding-time)
             (debarking-time)
-            (fuel-limit)
             )
 
 ;; el consecuente "vac�o" se representa como "()" y significa "siempre verdad"
@@ -45,13 +43,7 @@
 (:derived
   (different ?x ?y) (not (igual ?x ?y)))
 
-(:derived
-  (hay-fuel-rapido ?a ?c1 ?c2)
-  (and
-      (>= (fuel ?a) (* (fast-burn ?a) (distance ?c1 ?c2)))
-      (>= (fuel-limit) (+ (total-fuel-used) (* (fast-burn ?a) (distance ?c1 ?c2))))
-  )
-)
+
 
 ;; este literal derivado se utiliza para deducir, a partir de la información en el estado actual,
 ;; si hay fuel suficiente para que el avión ?a vuele de la ciudad ?c1 a la ?c2
@@ -61,12 +53,8 @@
 ;; los siguientes ejercicios).
 (:derived
 
-  (hay-fuel-lento ?a - aircraft ?c1 - city ?c2 - city)
-  (and
-      (>= (fuel ?a) (* (slow-burn ?a) (distance ?c1 ?c2)))
-      (>= (fuel-limit) (+ (total-fuel-used) (* (slow-burn ?a) (distance ?c1 ?c2))))
-  )
-  )
+  (hay-fuel ?a - aircraft ?c1 - city ?c2 - city)
+  (> (fuel ?a) 1))
 
 (:task transport-person
 	:parameters (?p - person ?c - city)
@@ -101,33 +89,21 @@
 
 (:task mover-avion
  :parameters (?a - aircraft ?c1 - city ?c2 -city)
- (:method fuel-suficiente-rapido
-   :precondition (hay-fuel-rapido ?a ?c1 ?c2)
-   :tasks (
-        (zoom ?a ?c1 ?c2)
-     )
-   )
- (:method fuel-suficiente-lento ;; este método se escogerá para usar la acción fly siempre que el avión tenga fuel para
+ (:method fuel-suficiente ;; este método se escogerá para usar la acción fly siempre que el avión tenga fuel para
                           ;; volar desde ?c1 a ?c2
 			  ;; si no hay fuel suficiente el método no se aplicará y la descomposición de esta tarea
 			  ;; se intentará hacer con otro método. Cuando se agotan todos los métodos posibles, la
 			  ;; descomponsición de la tarea mover-avión "fallará".
 			  ;; En consecuencia HTNP hará backtracking y escogerá otra posible vía para descomponer
 			  ;; la tarea mover-avion (por ejemplo, escogiendo otra instanciación para la variable ?a)
-  :precondition (and
-                  (hay-fuel-lento ?a ?c1 ?c2)
-                  (not (hay-fuel-rapido ?a ?c1 ?c2))
-                  )
+  :precondition (hay-fuel ?a ?c1 ?c2)
   :tasks (
           (fly ?a ?c1 ?c2)
          )
    )
 
    (:method no-fuel-suficiente
-     :precondition (and
-                      (not (hay-fuel-lento ?a ?c1 ?c2))
-                      (not (hay-fuel-rapido ?a ?c1 ?c2))
-                    )
+     :precondition (not (hay-fuel ?a ?c1 ?c2))
      :tasks (
               (refuel ?a ?c1)
               (mover-avion ?a ?c1 ?c2)
@@ -135,55 +111,6 @@
      )
   )
 
-  (:durative-action board
-   :parameters (?p - person ?a - aircraft ?c - city)
-   :duration (= ?duration (boarding-time))
-   :condition (and  (at ?p ?c)
-                    (at ?a ?c))
-   :effect (and  (not (at ?p ?c))
-                 (in ?p ?a)))
-
-  (:durative-action debark
-   :parameters (?p - person ?a - aircraft ?c - city)
-   :duration (= ?duration (debarking-time))
-   :condition (and (in ?p ?a)
-                   (at ?a ?c))
-   :effect (and  (not (in ?p ?a))
-                 (at ?p ?c)))
-
-  (:durative-action fly
-   :parameters (?a - aircraft ?c1 ?c2 - city)
-   :duration (= ?duration (/ (distance ?c1 ?c2) (slow-speed ?a)))
-   :condition (and  (at ?a ?c1)
-                    (>= (fuel ?a)
-                           (* (distance ?c1 ?c2) (slow-burn ?a))))
-   :effect (and  (not (at ?a ?c1))
-                 (at ?a ?c2)
-                (increase (total-fuel-used)
-                           (* (distance ?c1 ?c2) (slow-burn ?a)))
-                (decrease (fuel ?a)
-                           (* (distance ?c1 ?c2) (slow-burn ?a)))))
-
-  (:durative-action zoom
-   :parameters (?a - aircraft ?c1 ?c2 - city)
-   :duration (= ?duration (/ (distance ?c1 ?c2) (fast-speed ?a)))
-   :condition (and  (at ?a ?c1)
-                    (>= (fuel ?a)
-                           (* (distance ?c1 ?c2) (fast-burn ?a))))
-   :effect (and (not (at ?a ?c1))
-                 (at ?a ?c2)
-                 (increase (total-fuel-used)
-                           (* (distance ?c1 ?c2) (fast-burn ?a)))
-                (decrease (fuel ?a)
-                           (* (distance ?c1 ?c2) (fast-burn ?a)))))
-
-  (:durative-action refuel
-   :parameters (?a - aircraft ?c - city)
-   :duration (= ?duration (/ (- (capacity ?a) (fuel ?a)) (refuel-rate ?a)))
-   :condition (and  (> (capacity ?a) (fuel ?a))
-                   (at ?a ?c)
-                   (< (total-fuel-used) (fuel-limit)))
-   :effect (assign (fuel ?a) (capacity ?a)))
-
+  (:import "PrimitivasZenoTravel.pddl")
 
 )
