@@ -6,24 +6,37 @@
 (= :time-unit :hours))
 
 (:objects
-    p1 p2 p3 - person
+    p1 p2 p3 p4 p5 p6 p7 p8 - person
     almeria barcelona bilbao cadiz cordoba gibraltar granada huelva jaen madrid malaga sevilla - city
-    a1 a2 a3 - aircraft
+    a1 a2 a3 a4 - aircraft
 )
 (:init
     ;Donde estan las personas
     (at p1 almeria)
     (at p2 almeria)
     (at p3 bilbao)
+    (at p4 jaen)
+    (at p5 madrid)
+    (at p6 madrid)
+    (at p7 barcelona)
+    (at p8 gibraltar)
     ;Donde estan los aviones
     (at a1 granada)
     (at a2 madrid)
     (at a3 jaen)
+    (at a4 barcelona)
 
     ;Límite de combustible para los aviones
     (= (fuel-limit a1) 1500)
     (= (fuel-limit a2) 2400)
     (= (fuel-limit a3) 3200)
+    (= (fuel-limit a4) 4000)
+
+    ;Combustible gastado
+    (= (total-fuel-used a1) 0)
+    (= (total-fuel-used a2) 0)
+    (= (total-fuel-used a3) 0)
+    (= (total-fuel-used a4) 0)
 
     ;Distancia entre ciudades
     (= (distance almeria barcelona) 809)
@@ -170,52 +183,84 @@
     (= (distance sevilla madrid) 534)
     (= (distance sevilla malaga) 209)
 
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (= (distance almeria almeria) 0)
+    (= (distance barcelona barcelona) 0)
+    (= (distance bilbao bilbao) 0)
+    (= (distance cadiz cadiz) 0)
+    (= (distance cordoba cordoba) 0)
+    (= (distance gibraltar gibraltar) 0)
+    (= (distance granada granada) 0)
+    (= (distance huelva huelva) 0)
+    (= (distance jaen jaen) 0)
+    (= (distance madrid madrid) 0)
+    (= (distance malaga malaga) 0)
+    (= (distance sevilla sevilla) 0)
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
     ;Los destinos de las personas
     (destino p1 granada)
     (destino p2 granada)
     (destino p3 huelva)
+    (destino p4 bilbao)
+    (destino p5 malaga)
+    (destino p6 malaga)
+    (destino p7 sevilla)
+    (destino p8 sevilla)
 
     ;Datos del avión 1
-    (= (fuel a1) 1500)
+    (= (fuel a1) 700)
     (= (slow-speed a1) 10)
     (= (fast-speed a1) 20)
     (= (slow-burn a1) 1)
     (= (fast-burn a1) 2)
-    (= (capacity a1) 5000)
+    (= (capacity a1) 1000)
     (= (refuel-rate a1) 100)
-    (= (maximo-tiempo-vuelo a1) 20)
+    (= (maximo-tiempo-vuelo a1) 200)
     (= (capacidad-personas a1) 3)
     (= (personas-dentro a1) 0)
     (= (tiempo-vuelo a1) 0)
 
     ;Datos del avión 2
-    (= (fuel a2) 1500)
+    (= (fuel a2) 1000)
     (= (slow-speed a2) 10)
     (= (fast-speed a2) 20)
     (= (slow-burn a2) 1)
     (= (fast-burn a2) 2)
-    (= (capacity a2) 5000)
+    (= (capacity a2) 1000)
     (= (refuel-rate a2) 100)
-    (= (maximo-tiempo-vuelo a2) 45)
+    (= (maximo-tiempo-vuelo a2) 200)
     (= (capacidad-personas a2) 3)
     (= (personas-dentro a2) 0)
     (= (tiempo-vuelo a2) 0)
 
     ;Datos del avión 3
-    (= (fuel a3) 1500)
+    (= (fuel a3) 1300)
     (= (slow-speed a3) 10)
     (= (fast-speed a3) 20)
     (= (slow-burn a3) 1)
     (= (fast-burn a3) 2)
-    (= (capacity a3) 5000)
+    (= (capacity a3) 2200)
     (= (refuel-rate a3) 100)
-    (= (maximo-tiempo-vuelo a3) 60)
+    (= (maximo-tiempo-vuelo a3) 200)
     (= (capacidad-personas a3) 3)
     (= (personas-dentro a3) 0)
     (= (tiempo-vuelo a3) 0)
 
+    ;Datos del avión 4
+    (= (fuel a4) 2000)
+    (= (slow-speed a4) 10)
+    (= (fast-speed a4) 20)
+    (= (slow-burn a4) 1)
+    (= (fast-burn a4) 2)
+    (= (capacity a4) 3000)
+    (= (refuel-rate a4) 100)
+    (= (maximo-tiempo-vuelo a4) 200)
+    (= (capacidad-personas a4) 3)
+    (= (personas-dentro a4) 0)
+    (= (tiempo-vuelo a4) 0)
+
     ;Datos generales
-    (= (total-fuel-used) 0)
     (= (boarding-time) 1)
     (= (debarking-time) 1)
  )
@@ -226,6 +271,11 @@
    (transport-person p1 granada)
    (transport-person p2 granada)
    (transport-person p3 huelva)
+   (transport-person p4 bilbao)
+   (transport-person p5 malaga)
+   (transport-person p6 malaga)
+   (transport-person p7 sevilla)
+   (transport-person p8 sevilla)
 
    )
   )
